@@ -65,13 +65,6 @@ echo "changed" > file.txt
 - Cannot create `feature/abc` if `feature` exists (file conflict)
 - Nested branches fully supported
 
-## Roadmap
-
-- **Phase 1** (Done): Core CLI commands
-- **Phase 2** (Next): Real Git compatibility
-- **Phase 3**: Server + Git Smart HTTP Protocol (push/pull/clone)
-- **Phase 4**: Web UI + Deploy
-
 ## Testing
 
 Tested with [ApiPad](https://github.com/NiHaLOO7/ApiPad) — a lightweight Postman alternative.

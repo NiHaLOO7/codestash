@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 )
 
-const HEAD_PATH = ".codestash/HEAD"
-const BRANCHES_PATH = ".codestash/refs/heads/"
+func headPath() string { return PARENT + "/HEAD" }
+func branchesPath() string { return PARENT + "/refs/heads/" }
 
 // Parent
 func GetHead() string {
@@ -18,7 +18,7 @@ func GetHead() string {
 		fmt.Println("Git not initialized")
         return ""
 	}
-	head, _ := os.ReadFile(HEAD_PATH)
+	head, _ := os.ReadFile(headPath())
 	ref := strings.TrimSpace(string(head))
 	branchPath := strings.TrimPrefix(ref, "ref: ")
 	commitHash, err := os.ReadFile(PARENT+"/"+branchPath)
@@ -35,7 +35,7 @@ func UpdateHead(hash string) {
 		fmt.Println("Git not initialized")
         return
 	}
-	head, _ := os.ReadFile(HEAD_PATH)
+	head, _ := os.ReadFile(headPath())
 	ref := strings.TrimSpace(string(head))
 	branchPath := strings.TrimPrefix(ref, "ref: ")
 	os.WriteFile(PARENT+"/"+branchPath, []byte(hash), 0644)
@@ -47,7 +47,7 @@ func CurrentBranch() string {
 		fmt.Println("Git not initialized")
         return ""
 	}
-	head, _ := os.ReadFile(HEAD_PATH)
+	head, _ := os.ReadFile(headPath())
 	ref := strings.TrimSpace(string(head))
 	path := strings.TrimPrefix(ref, "ref: refs/heads/")
 	return path
@@ -60,7 +60,7 @@ func ListBranches() []string {
         return nil
 	}
 	var branches []string
-	filepath.WalkDir(BRANCHES_PATH, 
+	filepath.WalkDir(branchesPath(), 
 		func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
             	return err
@@ -68,7 +68,7 @@ func ListBranches() []string {
         	if d.IsDir() {
             	return nil
         	} else {
-            	name := strings.TrimPrefix(path, BRANCHES_PATH)
+            	name := strings.TrimPrefix(path, branchesPath())
 				branches = append(branches, name)
         	}
         	return nil
@@ -78,7 +78,7 @@ func ListBranches() []string {
 
 func CreateBranch(name string) {
 	head := GetHead()
-	info, err := os.Stat(BRANCHES_PATH + name)
+	info, err := os.Stat(branchesPath() + name)
 	if err == nil {
 		if info.IsDir() {
         	fmt.Println("conflicts with existing branches under that path")
@@ -90,7 +90,7 @@ func CreateBranch(name string) {
 	parts := strings.Split(name, "/")
 	parts = parts[:len(parts)-1]
 	var current_dict strings.Builder; 
-	current_dict.WriteString(BRANCHES_PATH)
+	current_dict.WriteString(branchesPath())
 	for _, part := range parts {
 		current_dict.WriteString(part);
 		current_dict.WriteString("/")
@@ -102,8 +102,8 @@ func CreateBranch(name string) {
 			continue
 		}
 	}
-	os.MkdirAll(filepath.Dir(BRANCHES_PATH + name), 0755)
-	os.WriteFile(BRANCHES_PATH + name, []byte(head), 0644)
+	os.MkdirAll(filepath.Dir(branchesPath() + name), 0755)
+	os.WriteFile(branchesPath() + name, []byte(head), 0644)
 }
 
 
@@ -113,7 +113,7 @@ func SwitchBranch(name string) {
 		fmt.Println("Git not initialized")
         return
 	}
-	_, err = os.Stat(BRANCHES_PATH + name)
+	_, err = os.Stat(branchesPath() + name)
 	if err == nil {
 		os.WriteFile(PARENT+"/HEAD", []byte("ref: refs/heads/"+name+"\n"), 0644)
 		return

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-var ignore = []string{".codestash", "exercises", "cmd", "core", "storage", ".gitignore", "go.mod", "go.sum", "main.go", "test.txt"}
+var ignore = []string{".git", ".codestash", "exercises", "cmd", "core", "storage", "internal", ".gitignore", "go.mod", "go.sum", "main.go", "test.txt"}
 
 func Status() {
 	branch := core.CurrentBranch()

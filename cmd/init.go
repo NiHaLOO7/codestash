@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 )
 
-const PARENT = ".codestash"
+var PARENT = ".git"
 
 
 func Init() {
@@ -17,6 +17,7 @@ func Init() {
 	os.MkdirAll(PARENT+"/objects", 0755)
     os.MkdirAll(PARENT+"/refs/heads", 0755)
     os.WriteFile(PARENT+"/HEAD", []byte("ref: refs/heads/master\n"), 0644)
+	os.WriteFile(PARENT+"/config", []byte("[user]\n\tname = CodeStash User\n\temail = user@codestash.dev\n"), 0644)
 	abs, _ := filepath.Abs(PARENT)
     fmt.Printf("Initialized in %s/\n", abs)
 }

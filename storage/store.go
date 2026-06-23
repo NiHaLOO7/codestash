@@ -6,9 +6,10 @@ import (
 	"io"
 	"fmt"
 	"os"
+	"github.com/NiHaLOO7/codestash/internal"
 )
 
-const PARENT = ".codestash"
+var PARENT = internal.PARENT
 func WriteObject(hash string, data []byte) {
 	folder := hash[:2]
 	file := hash[2:]

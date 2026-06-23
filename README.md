@@ -1,6 +1,6 @@
 # CodeStash
 
-A lightweight, self-hosted version control system built from scratch in Go. Designed to be a simple alternative to Git with familiar commands and a clean architecture.
+A lightweight, self-hosted version control system built from scratch in Go. Fully compatible with real Git — objects, index, commits, and branches are cross-readable between `cs` and `git` CLI.
 
 ## Commands
 
@@ -43,12 +43,28 @@ echo "changed" > file.txt
 ./cs diff
 ```
 
+## Git Compatibility
+
+CodeStash uses `.git` as its directory and writes all objects in real Git binary format:
+
+- **Index**: Binary DIRC format (v2) — `git status` reads it natively
+- **Trees**: Binary `<mode> <name>\x00<20-byte-hash>` format
+- **Commits**: Standard `author/committer <name> <email> <timestamp> <tz>` format
+- **Objects**: SHA-1 + zlib compressed, stored in `objects/xx/xxx...` structure
+
+**Cross-compatibility verified:**
+- `cs commit` → `git log` reads it ✓
+- `git commit` → `cs log` reads it ✓
+- `git status` clean after `cs add` + `cs commit` ✓
+- `git cat-file` reads all cs objects ✓
+
 ## Architecture
 
 ```
-.codestash/
+.git/
 ├── HEAD                 # Points to current branch
-├── index                # Staging area
+├── config               # User config ([user] section)
+├── index                # Binary staging area (DIRC v2)
 ├── objects/             # Content-addressable object store (SHA-1 + zlib)
 │   ├── 7f/2a9b...      # Blob, Tree, or Commit objects
 │   └── ...
@@ -75,3 +91,5 @@ Tested with [ApiPad](https://github.com/NiHaLOO7/ApiPad) — a lightweight Postm
 - **Storage**: File system (content-addressable)
 - **Hashing**: crypto/sha1
 - **Compression**: compress/zlib
+- **Binary Encoding**: encoding/binary (big-endian), encoding/hex
+- **Index Format**: Git DIRC v2 (binary)

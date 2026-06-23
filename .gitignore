@@ -1,0 +1,6 @@
+.codestash/
+cs
+*.txt
+exercises/
+test.sh
+.DS_Store

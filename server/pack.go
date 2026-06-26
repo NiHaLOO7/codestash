@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-func getType(typeName string) int {
+func getTypeCode(typeName string) int {
 	switch typeName {
 		case "commit":
 			return 1
@@ -40,7 +40,7 @@ func CreatePackFile(repoPath string, objects []string) []byte {
 		content := decompressed[nullPos+1:]          // actual data
 		parts := strings.Split(header, " ")
 		typeName := parts[0]
-		typeNum := getType(typeName)
+		typeNum := getTypeCode(typeName)
 		byteData := EncodeTypeSize(typeNum, len(content))
 		var compressedBuf bytes.Buffer
 		zlibWriter := zlib.NewWriter(&compressedBuf)

@@ -1,0 +1,38 @@
+{{define "content"}}
+<div class="container-xl">
+    <div class="repohead">
+        <div class="repohead-name">
+            <span class="owner">codestash</span>
+            <span class="slash">/</span>
+            <a class="repo" href="/{{.Repo}}">{{.Repo}}</a>
+        </div>
+    </div>
+
+    <div style="padding: 16px 0;">
+        <h3 style="font-size: 16px; margin-bottom: 16px;">
+            Editing <strong>{{.FilePath}}</strong> on branch <strong>{{.Branch}}</strong>
+        </h3>
+        <form method="POST" action="/{{.Repo}}/edit/{{.Branch}}/{{.FilePath}}">
+            <div class="form-group">
+                <textarea name="content">{{.Content}}</textarea>
+            </div>
+            <div class="form-group">
+                <label>Commit message</label>
+                <input type="text" name="message" placeholder="Update {{.FilePath}}" value="Update {{.FilePath}}">
+            </div>
+            <div class="form-group">
+                <label>Author name</label>
+                <input type="text" name="author" placeholder="Your Name" value="CodeStash User">
+            </div>
+            <div class="form-group">
+                <label>Author email</label>
+                <input type="text" name="email" placeholder="you@example.com" value="user@codestash.local">
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button type="submit" class="btn btn-primary">Commit changes</button>
+                <a href="/{{.Repo}}/blob/{{.Branch}}/{{.FilePath}}" class="btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{{end}}

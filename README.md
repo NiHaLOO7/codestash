@@ -1,6 +1,6 @@
 # CodeStash
 
-A lightweight, self-hosted version control system built from scratch in Go. Fully compatible with real Git — objects, index, commits, and branches are cross-readable between `cs` and `git` CLI.
+A lightweight, self-hosted version control system built from scratch in Go. Fully compatible with real Git — objects, index, commits, and branches are cross-readable between `cs` and `git` CLI. Includes a built-in Git Smart HTTP server and a full web UI.
 
 ## Commands
 
@@ -17,6 +17,7 @@ A lightweight, self-hosted version control system built from scratch in Go. Full
 | `cs checkout [-b] <branch>` | Switch branches |
 | `cs diff` | Show line-by-line changes |
 | `cs serve` | Start Git HTTP server on :8080 |
+| `cs web` | Start Web UI on :9090 |
 
 ## Quick Start
 
@@ -48,6 +49,30 @@ echo "changed" > file.txt
 
 # Clone from server (from another terminal)
 git clone http://localhost:8080/myrepo.git
+
+# Start Web UI
+./cs web
+# Open http://localhost:9090
+```
+
+## Web UI
+
+CodeStash includes a full-featured web interface with a clean light theme.
+
+**Features:**
+- Repository browser with file tree navigation
+- File viewer with line numbers
+- Commit history with timeline view
+- Word-wise diff viewer (highlights individual changed words, not just lines)
+- Create new repositories from the web
+- Create branches from the web
+- Edit files and commit directly from the browser
+- Branch switching dropdown
+- Breadcrumb navigation
+
+```bash
+./cs web
+# Visit http://localhost:9090
 ```
 
 ## Git Compatibility
@@ -83,7 +108,7 @@ CodeStash uses `.git` as its directory and writes all objects in real Git binary
 
 ## Git HTTP Server
 
-CodeStash includes a built-in Git Smart HTTP server. Any standard `git` client can clone from it:
+CodeStash includes a built-in Git Smart HTTP server. Any standard `git` client can clone and push:
 
 ```bash
 # Start server
@@ -91,11 +116,15 @@ CodeStash includes a built-in Git Smart HTTP server. Any standard `git` client c
 
 # Clone from another machine
 git clone http://localhost:8080/myrepo.git
+
+# Push changes
+git push http://localhost:8080/myrepo.git main
 ```
 
 Supports:
 - `GET /info/refs` — reference discovery
 - `POST /git-upload-pack` — clone/pull (packfile transfer)
+- `POST /git-receive-pack` — push (unpack + ref update)
 - Multi-repo serving from `repos/` directory
 
 ## Branch Validation
@@ -119,3 +148,5 @@ Tested with [ApiPad](https://github.com/NiHaLOO7/ApiPad) — a lightweight Postm
 - **Index Format**: Git DIRC v2 (binary)
 - **HTTP Server**: net/http (Git Smart HTTP Protocol)
 - **Packfile**: Custom packfile creation with variable-length encoding
+- **Web UI**: Go html/template, custom CSS (light theme)
+- **Diff Engine**: LCS-based word-level diff algorithm

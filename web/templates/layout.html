@@ -1,0 +1,27 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}} - CodeStash</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="AppHeader">
+        <a href="/" class="AppHeader-logo">
+            <span class="logo-icon">CS</span>
+            CodeStash
+        </a>
+        <div class="AppHeader-search">
+            <input type="text" placeholder="Search repositories..." disabled>
+        </div>
+        <nav class="AppHeader-nav">
+            <a href="/">Repositories</a>
+            <a href="/new">New Repo</a>
+        </nav>
+    </header>
+    {{template "content" .}}
+</body>
+</html>
+{{end}}

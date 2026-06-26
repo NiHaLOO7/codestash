@@ -1,0 +1,18 @@
+{{define "content"}}
+<div class="container-xl">
+    <div class="dashboard-header">
+        <h2>Create a new repository</h2>
+    </div>
+
+    <div class="form-card">
+        <form method="POST" action="/new">
+            <div class="form-group">
+                <label>Repository name</label>
+                <input type="text" name="name" placeholder="my-project.git" required>
+                <p style="color: #656d76; font-size: 12px; margin-top: 4px;">Must end with .git</p>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Repository</button>
+        </form>
+    </div>
+</div>
+{{end}}

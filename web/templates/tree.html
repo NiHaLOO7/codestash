@@ -1,0 +1,74 @@
+{{define "content"}}
+<div class="container-xl">
+    <div class="repohead">
+        <div class="repohead-name">
+            <span class="owner">codestash</span>
+            <span class="slash">/</span>
+            <a class="repo" href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="label">Public</span>
+        </div>
+        <nav class="UnderlineNav">
+            <a class="UnderlineNav-item selected" href="/{{.Repo}}">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zm12.5 1.5H1.75a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25zM8 10a2 2 0 11-.001-3.999A2 2 0 018 10z"/></svg>
+                Code
+            </a>
+            <a class="UnderlineNav-item" href="/{{.Repo}}/commits/{{.Branch}}">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
+                Commits
+                <span class="Counter">{{len .Commits}}</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="action-bar" style="padding-top: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="branch-select">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
+                <select onchange="window.location.href='/{{.Repo}}/tree/'+this.value">
+                    {{range .Branches}}
+                    <option value="{{.}}" {{if eq . $.Branch}}selected{{end}}>{{.}}</option>
+                    {{end}}
+                </select>
+            </div>
+            {{if .PathParts}}
+            <div class="breadcrumb">
+                <a href="/{{.Repo}}">{{.Repo}}</a>
+                {{range .PathParts}}
+                <span class="separator">/</span>
+                <a href="/{{$.Repo}}/tree/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
+                {{end}}
+            </div>
+            {{end}}
+        </div>
+        <a href="/{{.Repo}}/new-branch/{{.Branch}}" class="btn">Create Branch</a>
+    </div>
+
+    <div class="Box">
+        {{if .LatestCommit}}
+        <div class="Box-header">
+            <div class="avatar"></div>
+            <span class="commit-msg">{{.LatestCommit.Message}}</span>
+            <a class="commit-hash" href="/{{.Repo}}/commit/{{.LatestCommit.Hash}}">{{slice .LatestCommit.Hash 0 7}}</a>
+        </div>
+        {{end}}
+        {{range .Files}}
+        <div class="Box-row">
+            <span class="icon {{if .IsDir}}dir{{end}}">
+                {{if .IsDir}}
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3H7.5a.25.25 0 01-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75z"/></svg>
+                {{else}}
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V4.664a.25.25 0 00-.073-.177l-2.914-2.914a.25.25 0 00-.177-.073H3.75zM2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0113.25 16h-9.5A1.75 1.75 0 012 14.25V1.75z"/></svg>
+                {{end}}
+            </span>
+            <span class="name">
+                {{if .IsDir}}
+                <a href="/{{$.Repo}}/tree/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
+                {{else}}
+                <a href="/{{$.Repo}}/blob/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
+                {{end}}
+            </span>
+        </div>
+        {{end}}
+    </div>
+</div>
+{{end}}

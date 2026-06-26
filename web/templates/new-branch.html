@@ -1,0 +1,27 @@
+{{define "content"}}
+<div class="container-xl">
+    <div class="repohead">
+        <div class="repohead-name">
+            <span class="owner">codestash</span>
+            <span class="slash">/</span>
+            <a class="repo" href="/{{.Repo}}">{{.Repo}}</a>
+        </div>
+    </div>
+
+    <div style="padding: 24px 0;">
+        <h2 style="font-size: 20px; margin-bottom: 16px;">Create a new branch</h2>
+        <div class="form-card">
+            <form method="POST" action="/{{.Repo}}/new-branch/{{.SourceBranch}}">
+                <div class="form-group">
+                    <label>New branch name</label>
+                    <input type="text" name="branch" placeholder="feature/my-branch" required>
+                </div>
+                <p style="color: #656d76; font-size: 12px; margin-bottom: 16px;">
+                    Branch will be created from <strong>{{.SourceBranch}}</strong>
+                </p>
+                <button type="submit" class="btn btn-primary">Create Branch</button>
+            </form>
+        </div>
+    </div>
+</div>
+{{end}}

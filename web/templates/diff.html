@@ -1,0 +1,41 @@
+{{define "content"}}
+<div class="container-xl">
+    <div class="repohead">
+        <div class="repohead-name">
+            <span class="owner">codestash</span>
+            <span class="slash">/</span>
+            <a class="repo" href="/{{.Repo}}">{{.Repo}}</a>
+        </div>
+    </div>
+
+    <div class="commit-header">
+        <h1>{{.Message}}</h1>
+        <div class="commit-desc">
+            <span class="author">{{.Author}}</span>
+            <span>committed</span>
+            <span style="margin-left: auto; font-family: ui-monospace, SFMono-Regular, monospace;">{{slice .Hash 0 7}}</span>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 12px; color: #656d76; font-size: 14px;">
+        Showing <strong>{{len .Diffs}}</strong> changed files
+    </div>
+
+    {{range .Diffs}}
+    <div class="diff-file">
+        <div class="diff-file-header">
+            <span class="filename">{{.FileName}}</span>
+        </div>
+        <table class="diff-table">
+            {{range .Lines}}
+            <tr class="{{.Type}}">
+                <td class="line-num">{{.OldNum}}</td>
+                <td class="line-num">{{.NewNum}}</td>
+                <td class="line-content">{{.Content}}</td>
+            </tr>
+            {{end}}
+        </table>
+    </div>
+    {{end}}
+</div>
+{{end}}

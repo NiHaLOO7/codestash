@@ -1,0 +1,44 @@
+{{define "content"}}
+<div class="container-xl">
+    <div class="repohead">
+        <div class="repohead-name">
+            <span class="owner">codestash</span>
+            <span class="slash">/</span>
+            <a class="repo" href="/{{.Repo}}">{{.Repo}}</a>
+        </div>
+        <nav class="UnderlineNav">
+            <a class="UnderlineNav-item" href="/{{.Repo}}">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1z"/></svg>
+                Code
+            </a>
+            <a class="UnderlineNav-item selected" href="/{{.Repo}}/commits/{{.Branch}}">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
+                Commits
+                <span class="Counter">{{len .Commits}}</span>
+            </a>
+        </nav>
+    </div>
+
+    <div style="padding: 16px 0;">
+        <h3 style="font-size: 16px; margin-bottom: 16px;">Commits on <strong>{{.Branch}}</strong></h3>
+        {{range .Commits}}
+        <div class="TimelineItem">
+            <div class="TimelineItem-body">
+                <div>
+                    <div class="commit-title">
+                        <a href="/{{$.Repo}}/commit/{{.Hash}}">{{.Message}}</a>
+                    </div>
+                    <div class="commit-meta">
+                        <span class="author">{{.Author}}</span>
+                        <span>committed</span>
+                    </div>
+                </div>
+                <div class="sha-block">
+                    <a class="sha" href="/{{$.Repo}}/commit/{{.Hash}}">{{slice .Hash 0 7}}</a>
+                </div>
+            </div>
+        </div>
+        {{end}}
+    </div>
+</div>
+{{end}}

@@ -4,6 +4,7 @@ import (
 	"os"
 	"github.com/NiHaLOO7/codestash/cmd"
 	"github.com/NiHaLOO7/codestash/server"
+	"github.com/NiHaLOO7/codestash/web"
 )
 
 func main() {
@@ -32,5 +33,7 @@ func main() {
 		cmd.Diff()
 	case "serve":
 		server.StartServer()
+	case "web":
+		web.StartWeb("repos")
 	}
 }

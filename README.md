@@ -42,6 +42,12 @@ echo "hello" > file.txt
 # Make changes and diff
 echo "changed" > file.txt
 ./cs diff
+
+# Start HTTP server (serves repos from repos/ directory)
+./cs serve
+
+# Clone from server (from another terminal)
+git clone http://localhost:8080/myrepo.git
 ```
 
 ## Git Compatibility

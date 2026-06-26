@@ -16,6 +16,7 @@ A lightweight, self-hosted version control system built from scratch in Go. Full
 | `cs branch [name]` | List or create branches |
 | `cs checkout [-b] <branch>` | Switch branches |
 | `cs diff` | Show line-by-line changes |
+| `cs serve` | Start Git HTTP server on :8080 |
 
 ## Quick Start
 
@@ -74,6 +75,23 @@ CodeStash uses `.git` as its directory and writes all objects in real Git binary
         └── feature/abc
 ```
 
+## Git HTTP Server
+
+CodeStash includes a built-in Git Smart HTTP server. Any standard `git` client can clone from it:
+
+```bash
+# Start server
+./cs serve
+
+# Clone from another machine
+git clone http://localhost:8080/myrepo.git
+```
+
+Supports:
+- `GET /info/refs` — reference discovery
+- `POST /git-upload-pack` — clone/pull (packfile transfer)
+- Multi-repo serving from `repos/` directory
+
 ## Branch Validation
 
 - Cannot create a branch that already exists
@@ -93,3 +111,5 @@ Tested with [ApiPad](https://github.com/NiHaLOO7/ApiPad) — a lightweight Postm
 - **Compression**: compress/zlib
 - **Binary Encoding**: encoding/binary (big-endian), encoding/hex
 - **Index Format**: Git DIRC v2 (binary)
+- **HTTP Server**: net/http (Git Smart HTTP Protocol)
+- **Packfile**: Custom packfile creation with variable-length encoding

@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"github.com/NiHaLOO7/codestash/cmd"
+	"github.com/NiHaLOO7/codestash/server"
 )
 
 func main() {
@@ -29,5 +30,7 @@ func main() {
 		cmd.Checkout(os.Args[2:])
 	case "diff":
 		cmd.Diff()
+	case "serve":
+		server.StartServer()
 	}
 }

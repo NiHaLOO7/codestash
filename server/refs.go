@@ -9,7 +9,7 @@ import (
 
 
 
-func InfoRefs(repoPath string) string {
+func InfoRefs(repoPath string, service string) string {
 	refBytes, _ := os.ReadFile(repoPath + "/HEAD")
     ref := strings.TrimSpace(string(refBytes))
     branchPath := strings.TrimPrefix(ref, "ref: ")
@@ -18,7 +18,7 @@ func InfoRefs(repoPath string) string {
 	headsPath := repoPath + "/refs/heads/"
 	var response string
 
-	response += PktLine("# service=git-upload-pack\n")
+	response += PktLine("# service=" + service + "\n")
 	response += PktFlush()
 
 	response += PktLine(headHash + " HEAD\x00 report-status\n")

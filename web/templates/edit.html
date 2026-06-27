@@ -1,38 +1,63 @@
 {{define "content"}}
-<div class="container-xl">
-    <div class="repohead">
-        <div class="repohead-name">
-            <span class="owner">codestash</span>
-            <span class="slash">/</span>
-            <a class="repo" href="/{{.Repo}}">{{.Repo}}</a>
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <span class="current">Editing {{.FilePath}}</span>
+        </div>
+        <h1 style="font-size:20px;">Edit file</h1>
+        <p class="subtitle">on branch <strong>{{.Branch}}</strong></p>
+    </div>
+</div>
+
+<form method="POST" action="/{{.Repo}}/edit/{{.Branch}}/{{.FilePath}}">
+    <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+            <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;">{{.FilePath}}</span>
+            <div style="display:flex;gap:6px;">
+                <button type="button" class="btn btn-sm" disabled>Preview</button>
+            </div>
+        </div>
+        <div class="card-body" style="padding:0;">
+            <textarea name="content" class="form-input" style="border:none;border-radius:0;min-height:400px;resize:vertical;">{{.Content}}</textarea>
         </div>
     </div>
 
-    <div style="padding: 16px 0;">
-        <h3 style="font-size: 16px; margin-bottom: 16px;">
-            Editing <strong>{{.FilePath}}</strong> on branch <strong>{{.Branch}}</strong>
-        </h3>
-        <form method="POST" action="/{{.Repo}}/edit/{{.Branch}}/{{.FilePath}}">
-            <div class="form-group">
-                <textarea name="content">{{.Content}}</textarea>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <strong style="font-size:14px;">Commit changes</strong>
+        </div>
+        <div class="card-body">
             <div class="form-group">
                 <label>Commit message</label>
-                <input type="text" name="message" placeholder="Update {{.FilePath}}" value="Update {{.FilePath}}">
+                <input type="text" name="message" class="form-input" placeholder="Update {{.FilePath}}" value="Update {{.FilePath}}">
             </div>
-            <div class="form-group">
-                <label>Author name</label>
-                <input type="text" name="author" placeholder="Your Name" value="CodeStash User">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div class="form-group">
+                    <label>Author name</label>
+                    <input type="text" name="author" class="form-input" placeholder="Your Name" value="CodeStash User">
+                </div>
+                <div class="form-group">
+                    <label>Author email</label>
+                    <input type="text" name="email" class="form-input" placeholder="you@example.com" value="user@codestash.local">
+                </div>
             </div>
-            <div class="form-group">
-                <label>Author email</label>
-                <input type="text" name="email" placeholder="you@example.com" value="user@codestash.local">
+            <div class="form-group" style="padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);border:1px solid var(--border);">
+                <label style="margin-bottom:8px;font-size:12px;">Commit to branch</label>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="var(--accent)"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
+                    <code style="font-size:12px;color:var(--accent);background:var(--accent-lighter);padding:2px 8px;border-radius:4px;">{{.Branch}}</code>
+                </div>
             </div>
-            <div style="display: flex; gap: 8px;">
-                <button type="submit" class="btn btn-primary">Commit changes</button>
+            <div style="display:flex;gap:8px;margin-top:16px;">
+                <button type="submit" class="btn btn-primary">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
+                    Commit changes
+                </button>
                 <a href="/{{.Repo}}/blob/{{.Branch}}/{{.FilePath}}" class="btn">Cancel</a>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
 {{end}}

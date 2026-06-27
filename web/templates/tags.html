@@ -1,0 +1,25 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <span class="current">Tags</span>
+        </div>
+        <h1>Tags</h1>
+    </div>
+</div>
+
+<div class="release-nav">
+    <a href="/{{.Repo}}/releases" class="filter-tab">Releases</a>
+    <a href="/{{.Repo}}/tags" class="filter-tab active">Tags</a>
+</div>
+
+<div class="empty-state">
+    <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.752 1.752 0 011 7.775zM12.768 9.7L6.518 3.451A.25.25 0 006.342 3.38H2.75a.25.25 0 00-.25.25v3.592c0 .066.026.13.073.177l6.25 6.25a.25.25 0 00.354 0l5.026-5.025a.25.25 0 000-.354z"/><circle cx="4.25" cy="4.25" r="1"/></svg>
+    </div>
+    <h3>No tags yet</h3>
+    <p>Tags mark specific points in your repository's history. Use <code>git tag v1.0</code> to create one.</p>
+</div>
+{{end}}

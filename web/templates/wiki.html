@@ -4,12 +4,15 @@
         <div class="breadcrumb" style="margin-bottom:8px;">
             <a href="/{{.Repo}}">{{.Repo}}</a>
             <span class="sep">/</span>
-            <a href="/{{.Repo}}/commits/{{.Branch}}">Commits</a>
-            <span class="sep">/</span>
-            <span class="current">{{slice .Hash 0 7}}</span>
+            <span class="current">Wiki</span>
         </div>
-        <h1 style="font-size:20px;">{{.Message}}</h1>
+        <h1>Wiki</h1>
+        <p class="subtitle">Document your project for others</p>
     </div>
+    <a href="#" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+        New Page
+    </a>
 </div>
 
 <div class="tabs">
@@ -17,7 +20,7 @@
         <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1z"/></svg>
         Code
     </a>
-    <a class="tab active" href="/{{.Repo}}/commits/{{.Branch}}">
+    <a class="tab" href="/{{.Repo}}/commits/{{.Branch}}">
         <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
         Commits
     </a>
@@ -33,7 +36,7 @@
         <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l2.817 2.817a.75.75 0 11-1.06 1.06l-2.817-2.816A6 6 0 012 8z"/></svg>
         Actions
     </a>
-    <a class="tab" href="/{{.Repo}}/wiki">
+    <a class="tab active" href="/{{.Repo}}/wiki">
         <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75z"/></svg>
         Wiki
     </a>
@@ -43,36 +46,12 @@
     </a>
 </div>
 
-<div class="commit-detail-header">
-    <div style="display:flex;align-items:center;gap:10px;">
-        <div class="commit-avatar-sm"></div>
-        <div class="meta">
-            <span class="author">{{.Author}}</span> committed &middot; <code style="background:var(--accent-lighter);padding:2px 6px;border-radius:4px;color:var(--accent);font-size:12px;">{{slice .Hash 0 7}}</code>
-        </div>
+<div class="empty-state">
+    <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75z"/></svg>
     </div>
+    <h3>Welcome to the Wiki!</h3>
+    <p>Wikis provide a place to document your project. Create your first page to get started.</p>
+    <a href="#" class="btn btn-primary">Create the first page</a>
 </div>
-
-<div class="stats-row">
-    <span class="stat-badge files">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="display:inline;vertical-align:middle;margin-right:3px;"><path d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V4.664a.25.25 0 00-.073-.177l-2.914-2.914a.25.25 0 00-.177-.073H3.75z"/></svg>
-        {{len .Diffs}} files changed
-    </span>
-</div>
-
-{{range .Diffs}}
-<div class="diff-container">
-    <div class="diff-file-header">
-        <span>{{.FileName}}</span>
-    </div>
-    <table class="diff-table">
-        {{range .Lines}}
-        <tr class="{{.Type}}">
-            <td class="line-num">{{.OldNum}}</td>
-            <td class="line-num">{{.NewNum}}</td>
-            <td class="line-content">{{.Content}}</td>
-        </tr>
-        {{end}}
-    </table>
-</div>
-{{end}}
 {{end}}

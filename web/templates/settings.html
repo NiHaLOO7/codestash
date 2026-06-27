@@ -1,0 +1,131 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <span class="current">Settings</span>
+        </div>
+        <h1>Settings</h1>
+        <p class="subtitle">Manage repository configuration</p>
+    </div>
+</div>
+
+<div class="tabs">
+    <a class="tab" href="/{{.Repo}}">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1z"/></svg>
+        Code
+    </a>
+    <a class="tab" href="/{{.Repo}}/commits/{{.Branch}}">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
+        Commits
+    </a>
+    <a class="tab" href="/{{.Repo}}/issues">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg>
+        Issues
+    </a>
+    <a class="tab" href="/{{.Repo}}/pulls">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zm5.677-.177L9.573.677A.25.25 0 0110 .854V2.5h1A2.5 2.5 0 0113.5 5v5.628a2.251 2.251 0 11-1.5 0V5a1 1 0 00-1-1h-1v1.646a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354z"/></svg>
+        Pull Requests
+    </a>
+    <a class="tab" href="/{{.Repo}}/pipelines">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l2.817 2.817a.75.75 0 11-1.06 1.06l-2.817-2.816A6 6 0 012 8z"/></svg>
+        Actions
+    </a>
+    <a class="tab" href="/{{.Repo}}/wiki">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75z"/></svg>
+        Wiki
+    </a>
+    <a class="tab active" href="/{{.Repo}}/settings">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8.2 8.2 0 01.701.031C9.444.095 9.99.645 10.16 1.29l.17.638c.196.742.9 1.2 1.66 1.08l.656-.107c.665-.107 1.32.19 1.64.76a8.1 8.1 0 011.202 2.94l-.049.113c-.234.508-.09 1.108.347 1.453l.502.39c.543.42.737 1.14.472 1.756a8.2 8.2 0 01-.503.934c-.34.548-.99.825-1.648.687l-.644-.136c-.743-.157-1.474.314-1.634 1.063l-.116.545c-.163.764-.744 1.365-1.504 1.44A8.3 8.3 0 018 16a8.3 8.3 0 01-.789-.038c-.76-.075-1.341-.676-1.504-1.44l-.116-.545c-.16-.749-.89-1.22-1.634-1.063l-.644.136c-.658.138-1.308-.14-1.648-.687a8.2 8.2 0 01-.503-.934c-.265-.616-.071-1.336.472-1.756l.502-.39c.437-.345.581-.945.347-1.453l-.049-.113a8.1 8.1 0 011.202-2.94c.32-.57.975-.867 1.64-.76l.656.107c.76.12 1.464-.338 1.66-1.08l.17-.638C6.01.645 6.556.095 7.299.031A8.2 8.2 0 018 0zM8 5a3 3 0 100 6 3 3 0 000-6z"/></svg>
+        Settings
+    </a>
+</div>
+
+<div class="settings-layout">
+    <div class="settings-sidebar">
+        <a href="#" class="settings-nav-link active">General</a>
+        <a href="#" class="settings-nav-link">Collaborators</a>
+        <a href="#" class="settings-nav-link">Branches</a>
+        <a href="#" class="settings-nav-link">Webhooks</a>
+        <a href="#" class="settings-nav-link danger">Danger Zone</a>
+    </div>
+    <div class="settings-main">
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+                <strong>General</strong>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Repository name</label>
+                    <input type="text" class="form-input" value="{{.Repo}}" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-input" placeholder="Add a description to your repository">
+                </div>
+                <div class="form-group">
+                    <label>Default branch</label>
+                    <input type="text" class="form-input" value="{{.Branch}}" disabled>
+                </div>
+                <button class="btn btn-primary" disabled>Save changes</button>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+                <strong>Collaborators</strong>
+            </div>
+            <div class="card-body">
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px;">Manage who has access to this repository.</p>
+                <div style="display:flex;gap:8px;">
+                    <input type="text" class="form-input" placeholder="Search by username" style="max-width:300px;">
+                    <button class="btn btn-primary" disabled>Add</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+                <strong>Branch Protection Rules</strong>
+            </div>
+            <div class="card-body">
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px;">Define rules to protect important branches.</p>
+                <button class="btn" disabled>Add rule</button>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+                <strong>Webhooks</strong>
+            </div>
+            <div class="card-body">
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px;">Webhooks allow external services to be notified when certain events happen.</p>
+                <button class="btn" disabled>Add webhook</button>
+            </div>
+        </div>
+
+        <div class="card danger-zone">
+            <div class="card-header" style="background:var(--danger-bg);border-color:#fecaca;">
+                <strong style="color:var(--danger);">Danger Zone</strong>
+            </div>
+            <div class="card-body">
+                <div class="danger-item">
+                    <div>
+                        <strong>Change repository visibility</strong>
+                        <p style="color:var(--text-secondary);font-size:12px;margin-top:2px;">This repository is currently public.</p>
+                    </div>
+                    <button class="btn btn-danger btn-sm" disabled>Change visibility</button>
+                </div>
+                <div class="danger-item" style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+                    <div>
+                        <strong>Delete this repository</strong>
+                        <p style="color:var(--text-secondary);font-size:12px;margin-top:2px;">Once you delete a repository, there is no going back.</p>
+                    </div>
+                    <button class="btn btn-danger btn-sm" disabled>Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

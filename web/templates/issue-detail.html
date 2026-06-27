@@ -1,0 +1,108 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <a href="/{{.Repo}}/issues">Issues</a>
+            <span class="sep">/</span>
+            <span class="current">#{{.IssueID}}</span>
+        </div>
+        <h1 style="font-size:24px;">Example issue title <span style="color:var(--text-tertiary);font-weight:400;">#{{.IssueID}}</span></h1>
+    </div>
+    <a href="/{{.Repo}}/issues/new" class="btn btn-primary">New Issue</a>
+</div>
+
+<div class="issue-status-bar">
+    <span class="issue-state open">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg>
+        Open
+    </span>
+    <span class="issue-meta-text">
+        <strong>{{.CurrentUser}}</strong> opened this issue &middot; 0 comments
+    </span>
+</div>
+
+<div class="issue-detail-layout">
+    <div class="issue-detail-main">
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-avatar">
+                    <div class="commit-avatar-sm"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="comment-box">
+                        <div class="comment-header">
+                            <strong>{{.CurrentUser}}</strong>
+                            <span class="comment-time">just now</span>
+                            <span class="comment-badge owner">Owner</span>
+                        </div>
+                        <div class="comment-body">
+                            <p>This is a placeholder issue. The full issues system will track bugs, feature requests, and tasks.</p>
+                            <p style="margin-top:8px;">Supports <strong>Markdown</strong>, <code>code blocks</code>, and task lists:</p>
+                            <ul class="task-list" style="margin-top:8px;">
+                                <li><input type="checkbox" disabled> Implement issue creation</li>
+                                <li><input type="checkbox" disabled> Add labels and milestones</li>
+                                <li><input type="checkbox" disabled checked> Design the UI</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comment-form" style="margin-top:20px;">
+            <div class="card">
+                <div class="card-body">
+                    <textarea class="form-input form-input-editor" placeholder="Leave a comment" rows="5"></textarea>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+                        <p class="form-hint" style="margin:0;">
+                            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="display:inline;vertical-align:middle;margin-right:3px;"><path d="M14.85 3H1.15C.52 3 0 3.52 0 4.15v7.69C0 12.48.52 13 1.15 13h13.69c.64 0 1.15-.52 1.15-1.15v-7.7C16 3.52 15.48 3 14.85 3zM9 11H7V8L5.5 9.92 4 8v3H2V5h2l1.5 2L7 5h2v6zm2.99.5L9.5 8H11V5h2v3h1.5l-2.51 3.5z"/></svg>
+                            Markdown supported
+                        </p>
+                        <div style="display:flex;gap:8px;">
+                            <button class="btn">Close issue</button>
+                            <button class="btn btn-primary">Comment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="issue-detail-sidebar">
+        <div class="sidebar-widget">
+            <div class="widget-header">Assignees</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">No one assigned</a>
+            </div>
+        </div>
+        <div class="sidebar-widget">
+            <div class="widget-header">Labels</div>
+            <div class="widget-body">
+                <span class="label-tag" style="background:#d73a4a;color:#fff;">bug</span>
+                <span class="label-tag" style="background:#0075ca;color:#fff;">enhancement</span>
+            </div>
+        </div>
+        <div class="sidebar-widget">
+            <div class="widget-header">Milestone</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">No milestone</a>
+            </div>
+        </div>
+        <div class="sidebar-widget">
+            <div class="widget-header">Participants</div>
+            <div class="widget-body">
+                <div style="display:flex;gap:-4px;">
+                    <div class="commit-avatar-sm"></div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-widget" style="border-top:1px solid var(--border);padding-top:14px;">
+            <a href="#" style="font-size:12px;color:var(--text-tertiary);">Lock conversation</a>
+            <span style="margin:0 6px;color:var(--text-tertiary);">&middot;</span>
+            <a href="#" style="font-size:12px;color:var(--danger);">Delete issue</a>
+        </div>
+    </div>
+</div>
+{{end}}

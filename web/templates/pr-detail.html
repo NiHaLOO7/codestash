@@ -1,0 +1,147 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <a href="/{{.Repo}}/pulls">Pull Requests</a>
+            <span class="sep">/</span>
+            <span class="current">#{{.PRID}}</span>
+        </div>
+        <h1 style="font-size:24px;">Example pull request title <span style="color:var(--text-tertiary);font-weight:400;">#{{.PRID}}</span></h1>
+    </div>
+</div>
+
+<div class="issue-status-bar">
+    <span class="issue-state pr-open">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zm5.677-.177L9.573.677A.25.25 0 0110 .854V2.5h1A2.5 2.5 0 0113.5 5v5.628a2.251 2.251 0 11-1.5 0V5a1 1 0 00-1-1h-1v1.646a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354z"/></svg>
+        Open
+    </span>
+    <span class="issue-meta-text">
+        <strong>{{.CurrentUser}}</strong> wants to merge 1 commit into <code class="branch-badge">main</code> from <code class="branch-badge">feature</code>
+    </span>
+</div>
+
+<div class="pr-tabs">
+    <a href="#" class="pr-tab active">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25H1.75z"/></svg>
+        Conversation <span class="count">1</span>
+    </a>
+    <a href="#" class="pr-tab">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
+        Commits <span class="count">1</span>
+    </a>
+    <a href="#" class="pr-tab">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+        Checks <span class="count">0</span>
+    </a>
+    <a href="#" class="pr-tab">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V4.664a.25.25 0 00-.073-.177l-2.914-2.914a.25.25 0 00-.177-.073H3.75z"/></svg>
+        Files changed <span class="count">2</span>
+    </a>
+</div>
+
+<div class="issue-detail-layout">
+    <div class="issue-detail-main">
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-avatar">
+                    <div class="commit-avatar-sm"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="comment-box">
+                        <div class="comment-header">
+                            <strong>{{.CurrentUser}}</strong>
+                            <span class="comment-time">just now</span>
+                            <span class="comment-badge owner">Owner</span>
+                        </div>
+                        <div class="comment-body">
+                            <p>This pull request implements the new feature. Please review the changes.</p>
+                            <h3 style="margin-top:12px;font-size:14px;">Changes</h3>
+                            <ul style="margin-top:6px;padding-left:16px;font-size:13px;">
+                                <li>Added new handler function</li>
+                                <li>Updated routing table</li>
+                                <li>Added tests</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pr-merge-box" style="margin-top:20px;">
+            <div class="card">
+                <div class="card-body">
+                    <div class="pr-merge-status-section">
+                        <div class="pr-check-item success">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                            <span>No conflicts with base branch</span>
+                        </div>
+                        <div class="pr-check-item success">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+                            <span>All checks passed</span>
+                        </div>
+                    </div>
+                    <div class="pr-merge-actions">
+                        <div class="merge-button-group">
+                            <button class="btn btn-primary btn-merge">
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.254V3.25a.75.75 0 01.75-.746h.797c.708 0 1.281.573 1.281 1.281v5.43a2.253 2.253 0 11-1.5 0V3.785h-.047A.75.75 0 015 3.254zm6.166 1.96a2.251 2.251 0 11-1.5 0V3.254a.75.75 0 01.75-.746h.047V2.5a.75.75 0 01.75-.75h.047c.708 0 1.281.573 1.281 1.281v1.433a2.251 2.251 0 11-1.5 0V3.031h-.047v.048a.75.75 0 01-.75.746h-.047v.048a.75.75 0 01-.028.341z"/></svg>
+                                Merge pull request
+                            </button>
+                            <button class="btn btn-primary merge-dropdown-btn">
+                                <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"/></svg>
+                            </button>
+                        </div>
+                        <label class="checkbox-option" style="margin-top:10px;">
+                            <input type="checkbox" checked>
+                            <span style="font-size:12px;color:var(--text-secondary);">Delete branch after merge</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comment-form" style="margin-top:20px;">
+            <div class="card">
+                <div class="card-body">
+                    <textarea class="form-input form-input-editor" placeholder="Leave a comment" rows="4"></textarea>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+                        <p class="form-hint" style="margin:0;">Markdown supported</p>
+                        <div style="display:flex;gap:8px;">
+                            <button class="btn">Close pull request</button>
+                            <button class="btn btn-primary">Comment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="issue-detail-sidebar">
+        <div class="sidebar-widget">
+            <div class="widget-header">Reviewers</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">Request review</a>
+            </div>
+        </div>
+        <div class="sidebar-widget">
+            <div class="widget-header">Assignees</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">No one assigned</a>
+            </div>
+        </div>
+        <div class="sidebar-widget">
+            <div class="widget-header">Labels</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">None yet</a>
+            </div>
+        </div>
+        <div class="sidebar-widget">
+            <div class="widget-header">Milestone</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">No milestone</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

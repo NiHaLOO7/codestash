@@ -1,0 +1,41 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <h1>Gists</h1>
+        <p class="subtitle">Instantly share code, notes, and snippets</p>
+    </div>
+    <a href="/gists/new" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+        New Gist
+    </a>
+</div>
+
+<div class="gists-page">
+    <div class="gists-tabs">
+        <a class="gist-tab active">All Gists</a>
+        <a class="gist-tab">Public</a>
+        <a class="gist-tab">Secret</a>
+        <a class="gist-tab">Starred</a>
+    </div>
+
+    <div class="gists-filter-bar">
+        <input type="text" class="form-input" placeholder="Search gists...">
+        <select class="form-select-sm">
+            <option>Recently created</option>
+            <option>Recently updated</option>
+            <option>Most starred</option>
+        </select>
+    </div>
+
+    <div class="gists-list">
+        <div class="empty-state">
+            <div class="icon">
+                <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zm12.5 1.5H1.75a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25zM3 4.75A.75.75 0 013.75 4h4.5a.75.75 0 010 1.5h-4.5A.75.75 0 013 4.75zM3.75 7a.75.75 0 000 1.5h7.5a.75.75 0 000-1.5h-7.5zm0 3a.75.75 0 000 1.5h2.5a.75.75 0 000-1.5h-2.5z"/></svg>
+            </div>
+            <h3>No gists yet</h3>
+            <p>Create a gist to share code snippets, notes, and other text.</p>
+            <a href="/gists/new" class="btn btn-primary">Create your first gist</a>
+        </div>
+    </div>
+</div>
+{{end}}

@@ -4,12 +4,15 @@
         <div class="breadcrumb" style="margin-bottom:8px;">
             <a href="/{{.Repo}}">{{.Repo}}</a>
             <span class="sep">/</span>
-            <a href="/{{.Repo}}/commits/{{.Branch}}">Commits</a>
-            <span class="sep">/</span>
-            <span class="current">{{slice .Hash 0 7}}</span>
+            <span class="current">Issues</span>
         </div>
-        <h1 style="font-size:20px;">{{.Message}}</h1>
+        <h1>Issues</h1>
+        <p class="subtitle">Track bugs, enhancements, and tasks</p>
     </div>
+    <a href="#" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+        New Issue
+    </a>
 </div>
 
 <div class="tabs">
@@ -17,11 +20,11 @@
         <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1z"/></svg>
         Code
     </a>
-    <a class="tab active" href="/{{.Repo}}/commits/{{.Branch}}">
+    <a class="tab" href="/{{.Repo}}/commits/{{.Branch}}">
         <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
         Commits
     </a>
-    <a class="tab" href="/{{.Repo}}/issues">
+    <a class="tab active" href="/{{.Repo}}/issues">
         <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg>
         Issues
     </a>
@@ -43,36 +46,25 @@
     </a>
 </div>
 
-<div class="commit-detail-header">
-    <div style="display:flex;align-items:center;gap:10px;">
-        <div class="commit-avatar-sm"></div>
-        <div class="meta">
-            <span class="author">{{.Author}}</span> committed &middot; <code style="background:var(--accent-lighter);padding:2px 6px;border-radius:4px;color:var(--accent);font-size:12px;">{{slice .Hash 0 7}}</code>
-        </div>
+<div class="filter-bar">
+    <div class="filter-tabs">
+        <a href="#" class="filter-tab active">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg>
+            0 Open
+        </a>
+        <a href="#" class="filter-tab">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+            0 Closed
+        </a>
     </div>
 </div>
 
-<div class="stats-row">
-    <span class="stat-badge files">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="display:inline;vertical-align:middle;margin-right:3px;"><path d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V4.664a.25.25 0 00-.073-.177l-2.914-2.914a.25.25 0 00-.177-.073H3.75z"/></svg>
-        {{len .Diffs}} files changed
-    </span>
-</div>
-
-{{range .Diffs}}
-<div class="diff-container">
-    <div class="diff-file-header">
-        <span>{{.FileName}}</span>
+<div class="empty-state">
+    <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg>
     </div>
-    <table class="diff-table">
-        {{range .Lines}}
-        <tr class="{{.Type}}">
-            <td class="line-num">{{.OldNum}}</td>
-            <td class="line-num">{{.NewNum}}</td>
-            <td class="line-content">{{.Content}}</td>
-        </tr>
-        {{end}}
-    </table>
+    <h3>Welcome to Issues!</h3>
+    <p>Issues are used to track todos, bugs, feature requests, and more.</p>
+    <a href="#" class="btn btn-primary">New Issue</a>
 </div>
-{{end}}
 {{end}}

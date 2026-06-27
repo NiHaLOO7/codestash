@@ -1,74 +1,156 @@
 {{define "content"}}
-<div class="container-xl">
-    <div class="repohead">
-        <div class="repohead-name">
-            <span class="owner">codestash</span>
-            <span class="slash">/</span>
-            <a class="repo" href="/{{.Repo}}">{{.Repo}}</a>
-            <span class="label">Public</span>
-        </div>
-        <nav class="UnderlineNav">
-            <a class="UnderlineNav-item selected" href="/{{.Repo}}">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zm12.5 1.5H1.75a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25zM8 10a2 2 0 11-.001-3.999A2 2 0 018 10z"/></svg>
-                Code
-            </a>
-            <a class="UnderlineNav-item" href="/{{.Repo}}/commits/{{.Branch}}">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
-                Commits
-                <span class="Counter">{{len .Commits}}</span>
-            </a>
-        </nav>
+<div class="page-header">
+    <div>
+        <h1>{{.Repo}}</h1>
+        <p class="subtitle">Self-hosted repository</p>
     </div>
+    <div style="display:flex;gap:8px;">
+        <a href="#" class="btn btn-sm">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+            Star
+        </a>
+        <a href="#" class="btn btn-sm">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0z"/></svg>
+            Fork
+        </a>
+    </div>
+</div>
 
-    <div class="action-bar" style="padding-top: 16px;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <div class="branch-select">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
-                <select onchange="window.location.href='/{{.Repo}}/tree/'+this.value">
-                    {{range .Branches}}
-                    <option value="{{.}}" {{if eq . $.Branch}}selected{{end}}>{{.}}</option>
+<div class="tabs">
+    <a class="tab active" href="/{{.Repo}}">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1z"/></svg>
+        Code
+    </a>
+    <a class="tab" href="/{{.Repo}}/commits/{{.Branch}}">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
+        Commits
+        <span class="count">{{len .Commits}}</span>
+    </a>
+    <a class="tab" href="/{{.Repo}}/issues">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg>
+        Issues
+    </a>
+    <a class="tab" href="/{{.Repo}}/pulls">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zm5.677-.177L9.573.677A.25.25 0 0110 .854V2.5h1A2.5 2.5 0 0113.5 5v5.628a2.251 2.251 0 11-1.5 0V5a1 1 0 00-1-1h-1v1.646a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354z"/></svg>
+        Pull Requests
+    </a>
+    <a class="tab" href="/{{.Repo}}/pipelines">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l2.817 2.817a.75.75 0 11-1.06 1.06l-2.817-2.816A6 6 0 012 8z"/></svg>
+        Actions
+    </a>
+    <a class="tab" href="/{{.Repo}}/wiki">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75z"/></svg>
+        Wiki
+    </a>
+    <a class="tab" href="/{{.Repo}}/settings">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8.2 8.2 0 01.701.031C9.444.095 9.99.645 10.16 1.29l.17.638c.196.742.9 1.2 1.66 1.08l.656-.107c.665-.107 1.32.19 1.64.76a8.1 8.1 0 011.202 2.94l-.049.113c-.234.508-.09 1.108.347 1.453l.502.39c.543.42.737 1.14.472 1.756a8.2 8.2 0 01-.503.934c-.34.548-.99.825-1.648.687l-.644-.136c-.743-.157-1.474.314-1.634 1.063l-.116.545c-.163.764-.744 1.365-1.504 1.44A8.3 8.3 0 018 16a8.3 8.3 0 01-.789-.038c-.76-.075-1.341-.676-1.504-1.44l-.116-.545c-.16-.749-.89-1.22-1.634-1.063l-.644.136c-.658.138-1.308-.14-1.648-.687a8.2 8.2 0 01-.503-.934c-.265-.616-.071-1.336.472-1.756l.502-.39c.437-.345.581-.945.347-1.453l-.049-.113a8.1 8.1 0 011.202-2.94c.32-.57.975-.867 1.64-.76l.656.107c.76.12 1.464-.338 1.66-1.08l.17-.638C6.01.645 6.556.095 7.299.031A8.2 8.2 0 018 0zM8 5a3 3 0 100 6 3 3 0 000-6z"/></svg>
+        Settings
+    </a>
+</div>
+
+<div class="repo-layout">
+    <div class="repo-main">
+        <div class="action-bar">
+            <div class="left">
+                <div class="branch-selector-group">
+                    <div class="branch-selector">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
+                        <select onchange="window.location.href='/{{.Repo}}/tree/'+this.value">
+                            {{range .Branches}}
+                            <option value="{{.}}" {{if eq . $.Branch}}selected{{end}}>{{.}}</option>
+                            {{end}}
+                        </select>
+                    </div>
+                    <a href="/{{.Repo}}/new-branch/{{.Branch}}" class="btn btn-sm" title="Create new branch">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+                    </a>
+                    <span class="branch-count">{{len .Branches}} branches</span>
+                </div>
+                {{if .PathParts}}
+                <div class="breadcrumb">
+                    <a href="/{{.Repo}}">{{.Repo}}</a>
+                    {{range .PathParts}}
+                    <span class="sep">/</span>
+                    <a href="/{{$.Repo}}/tree/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
                     {{end}}
-                </select>
-            </div>
-            {{if .PathParts}}
-            <div class="breadcrumb">
-                <a href="/{{.Repo}}">{{.Repo}}</a>
-                {{range .PathParts}}
-                <span class="separator">/</span>
-                <a href="/{{$.Repo}}/tree/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
+                </div>
                 {{end}}
+            </div>
+            <div class="right">
+                <a href="#" class="btn btn-sm">Add file</a>
+                <a href="#" class="btn btn-sm btn-primary">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 1.75v11.5c0 .09.048.173.126.217a.25.25 0 00.249-.012l3.125-2.19 3.125 2.19a.25.25 0 00.374-.217V1.75A1.75 1.75 0 008.75 0h-3.5A1.75 1.75 0 003.5 1.75z"/></svg>
+                    Code
+                </a>
+            </div>
+        </div>
+
+        <div class="file-tree">
+            {{if .LatestCommit}}
+            <div class="file-tree-header">
+                <div class="commit-avatar"></div>
+                <span class="commit-msg">{{.LatestCommit.Message}}</span>
+                <a class="commit-hash" href="/{{.Repo}}/commit/{{.LatestCommit.Hash}}">{{slice .LatestCommit.Hash 0 7}}</a>
+            </div>
+            {{end}}
+            {{range .Files}}
+            <div class="file-row">
+                <span class="file-icon {{if .IsDir}}dir{{end}}">
+                    {{if .IsDir}}
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3H7.5a.25.25 0 01-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75z"/></svg>
+                    {{else}}
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V4.664a.25.25 0 00-.073-.177l-2.914-2.914a.25.25 0 00-.177-.073H3.75z"/></svg>
+                    {{end}}
+                </span>
+                <span class="file-name">
+                    {{if .IsDir}}
+                    <a href="/{{$.Repo}}/tree/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
+                    {{else}}
+                    <a href="/{{$.Repo}}/blob/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
+                    {{end}}
+                </span>
             </div>
             {{end}}
         </div>
-        <a href="/{{.Repo}}/new-branch/{{.Branch}}" class="btn">Create Branch</a>
     </div>
 
-    <div class="Box">
-        {{if .LatestCommit}}
-        <div class="Box-header">
-            <div class="avatar"></div>
-            <span class="commit-msg">{{.LatestCommit.Message}}</span>
-            <a class="commit-hash" href="/{{.Repo}}/commit/{{.LatestCommit.Hash}}">{{slice .LatestCommit.Hash 0 7}}</a>
+    <div class="repo-sidebar-about">
+        <div class="card">
+            <div class="card-header">
+                <strong>About</strong>
+            </div>
+            <div class="card-body">
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:12px;">Self-hosted repository managed by CodeStash</p>
+                <div class="about-meta">
+                    <div class="about-meta-item">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                        <span>0 stars</span>
+                    </div>
+                    <div class="about-meta-item">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2c1.981 0 3.671.992 4.933 2.078 1.27 1.091 2.187 2.345 2.637 3.023a1.62 1.62 0 010 1.798c-.45.678-1.367 1.932-2.637 3.023C11.67 13.008 9.981 14 8 14c-1.981 0-3.671-.992-4.933-2.078C1.797 10.83.88 9.576.43 8.898a1.62 1.62 0 010-1.798c.45-.677 1.367-1.931 2.637-3.022C4.33 2.992 6.019 2 8 2zM1.679 7.932a.12.12 0 000 .136c.411.622 1.241 1.75 2.366 2.717C5.176 11.758 6.527 12.5 8 12.5c1.473 0 2.825-.742 3.955-1.715 1.124-.967 1.954-2.096 2.366-2.717a.12.12 0 000-.136c-.412-.621-1.242-1.75-2.366-2.717C10.824 4.242 9.473 3.5 8 3.5c-1.473 0-2.824.742-3.955 1.715-1.124.967-1.954 2.096-2.366 2.717zM8 10a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                        <span>0 watching</span>
+                    </div>
+                    <div class="about-meta-item">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0z"/></svg>
+                        <span>0 forks</span>
+                    </div>
+                    <div class="about-meta-item">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
+                        <span>{{len .Branches}} branches</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        {{end}}
-        {{range .Files}}
-        <div class="Box-row">
-            <span class="icon {{if .IsDir}}dir{{end}}">
-                {{if .IsDir}}
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3H7.5a.25.25 0 01-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75z"/></svg>
-                {{else}}
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V4.664a.25.25 0 00-.073-.177l-2.914-2.914a.25.25 0 00-.177-.073H3.75zM2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0113.25 16h-9.5A1.75 1.75 0 012 14.25V1.75z"/></svg>
-                {{end}}
-            </span>
-            <span class="name">
-                {{if .IsDir}}
-                <a href="/{{$.Repo}}/tree/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
-                {{else}}
-                <a href="/{{$.Repo}}/blob/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
-                {{end}}
-            </span>
+        <div class="card" style="margin-top:14px;">
+            <div class="card-header">
+                <strong>Clone</strong>
+            </div>
+            <div class="card-body">
+                <div class="clone-url-box">
+                    <input type="text" class="form-input" value="http://localhost:9090/{{.Repo}}" readonly style="font-family:var(--font-mono);font-size:11px;">
+                </div>
+            </div>
         </div>
-        {{end}}
     </div>
 </div>
 {{end}}

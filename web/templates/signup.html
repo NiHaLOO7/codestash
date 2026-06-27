@@ -1,0 +1,72 @@
+{{define "content"}}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-logo">
+            <div class="logo">CS</div>
+            <h1>Create your account</h1>
+            <p style="color:var(--text-secondary);font-size:13px;margin-top:6px;">Join CodeStash — self-hosted, private, secure</p>
+        </div>
+        {{if .Error}}
+        <div class="auth-error">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 9a1 1 0 100-2 1 1 0 000 2z"/></svg>
+            {{.Error}}
+        </div>
+        {{end}}
+        <div class="auth-form">
+            <form method="POST" action="/signup">
+                <div class="form-group">
+                    <label>Username</label>
+                    <div class="input-icon-wrapper">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="input-icon"><path d="M10.561 8.073a6.005 6.005 0 013.432 5.142.75.75 0 11-1.498.07 4.5 4.5 0 00-8.99 0 .75.75 0 11-1.498-.07 6.004 6.004 0 013.431-5.142 3.999 3.999 0 115.123 0zM10.5 5a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
+                        <input type="text" name="username" class="form-input form-input-icon" placeholder="Choose a username" required autocomplete="username">
+                    </div>
+                    <p class="form-hint">This will be your unique identifier on CodeStash.</p>
+                </div>
+                <div class="form-group">
+                    <label>Email address</label>
+                    <div class="input-icon-wrapper">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="input-icon"><path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5C0 2.784.784 2 1.75 2zM1.5 4.607v7.643c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4.607l-5.426 3.899a1.75 1.75 0 01-2.148 0L1.5 4.607zM14.25 3.5H1.75a.25.25 0 00-.104.022l5.882 4.232a.25.25 0 00.294 0l5.882-4.232A.25.25 0 0014.25 3.5z"/></svg>
+                        <input type="email" name="email" class="form-input form-input-icon" placeholder="you@example.com" required autocomplete="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-icon-wrapper">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="input-icon"><path d="M4 4v2h-.25A1.75 1.75 0 002 7.75v5.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-5.5A1.75 1.75 0 0012.25 6H12V4a4 4 0 10-8 0zm6.5 2V4a2.5 2.5 0 00-5 0v2h5zM8 9.5a1.5 1.5 0 01.75 2.8v.95a.75.75 0 01-1.5 0v-.95A1.5 1.5 0 018 9.5z"/></svg>
+                        <input type="password" name="password" class="form-input form-input-icon" placeholder="Create a strong password" required autocomplete="new-password" minlength="8">
+                    </div>
+                    <p class="form-hint">Must be at least 8 characters.</p>
+                </div>
+                <div class="form-group">
+                    <label>Confirm password</label>
+                    <div class="input-icon-wrapper">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="input-icon"><path d="M4 4v2h-.25A1.75 1.75 0 002 7.75v5.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-5.5A1.75 1.75 0 0012.25 6H12V4a4 4 0 10-8 0zm6.5 2V4a2.5 2.5 0 00-5 0v2h5zM8 9.5a1.5 1.5 0 01.75 2.8v.95a.75.75 0 01-1.5 0v-.95A1.5 1.5 0 018 9.5z"/></svg>
+                        <input type="password" name="confirm_password" class="form-input form-input-icon" placeholder="Confirm your password" required autocomplete="new-password">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.533.133a1.75 1.75 0 00-1.066 0l-5.25 1.68A1.75 1.75 0 001 3.48V7c0 1.566.32 3.182 1.303 4.682.983 1.498 2.585 2.813 5.032 3.855a1.7 1.7 0 001.33 0c2.447-1.042 4.049-2.357 5.032-3.855C14.68 10.182 15 8.566 15 7V3.48a1.75 1.75 0 00-1.217-1.667L8.533.133zm-.61 1.429a.25.25 0 01.153 0l5.25 1.68a.25.25 0 01.174.238V7c0 1.358-.275 2.666-1.057 3.86-.784 1.194-2.121 2.34-4.366 3.297a.2.2 0 01-.154 0c-2.245-.956-3.582-2.104-4.366-3.298C2.775 9.666 2.5 8.36 2.5 7V3.48a.25.25 0 01.174-.238l5.25-1.68zM11.28 6.28a.75.75 0 00-1.06-1.06L7.25 8.19l-.97-.97a.75.75 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0l3.5-3.5z"/></svg>
+                    Create Secure Account
+                </button>
+            </form>
+        </div>
+        <div class="auth-security-info">
+            <div class="security-badge">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8.533.133a1.75 1.75 0 00-1.066 0l-5.25 1.68A1.75 1.75 0 001 3.48V7c0 1.566.32 3.182 1.303 4.682.983 1.498 2.585 2.813 5.032 3.855a1.7 1.7 0 001.33 0c2.447-1.042 4.049-2.357 5.032-3.855C14.68 10.182 15 8.566 15 7V3.48a1.75 1.75 0 00-1.217-1.667L8.533.133zm-.61 1.429a.25.25 0 01.153 0l5.25 1.68a.25.25 0 01.174.238V7c0 1.358-.275 2.666-1.057 3.86-.784 1.194-2.121 2.34-4.366 3.297a.2.2 0 01-.154 0c-2.245-.956-3.582-2.104-4.366-3.298C2.775 9.666 2.5 8.36 2.5 7V3.48a.25.25 0 01.174-.238l5.25-1.68zM11.28 6.28a.75.75 0 00-1.06-1.06L7.25 8.19l-.97-.97a.75.75 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0l3.5-3.5z"/></svg>
+                <span>Passwords hashed with bcrypt (cost 10)</span>
+            </div>
+            <div class="security-badge">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M4 4v2h-.25A1.75 1.75 0 002 7.75v5.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-5.5A1.75 1.75 0 0012.25 6H12V4a4 4 0 10-8 0zm6.5 2V4a2.5 2.5 0 00-5 0v2h5zM8 9.5a1.5 1.5 0 01.75 2.8v.95a.75.75 0 01-1.5 0v-.95A1.5 1.5 0 018 9.5z"/></svg>
+                <span>Secure HttpOnly session tokens</span>
+            </div>
+            <div class="security-badge">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M5.029 2.217a6.5 6.5 0 019.437 5.11c.054.764-.272 1.527-.882 2.052-.608.524-1.142.855-1.675 1.105-.523.245-1.062.421-1.59.584-.518.159-1.07.313-1.534.534-.404.19-.794.433-1.075.85-.281.419-.46.97-.46 1.798a.75.75 0 01-1.5 0c0-1.042.237-1.851.692-2.527.457-.678 1.064-1.061 1.58-1.304.57-.268 1.193-.436 1.704-.596.505-.157.946-.305 1.34-.49.41-.193.757-.414 1.13-.736.364-.314.52-.67.496-.998a5 5 0 10-9.693-1.152.75.75 0 01-1.422.472A6.483 6.483 0 015.03 2.217zM6.75 13.5a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z"/></svg>
+                <span>Your data stays on your server</span>
+            </div>
+        </div>
+        <div class="auth-footer">
+            Already have an account? <a href="/login">Sign in</a>
+        </div>
+    </div>
+</div>
+{{end}}

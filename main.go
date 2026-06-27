@@ -2,6 +2,8 @@ package main
 
 import (
 	"os"
+
+	"github.com/NiHaLOO7/codestash/auth"
 	"github.com/NiHaLOO7/codestash/cmd"
 	"github.com/NiHaLOO7/codestash/server"
 	"github.com/NiHaLOO7/codestash/web"
@@ -34,6 +36,7 @@ func main() {
 	case "serve":
 		server.StartServer()
 	case "web":
+		auth.InitDB()
 		web.StartWeb("repos")
 	}
 }

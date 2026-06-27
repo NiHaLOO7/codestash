@@ -15,6 +15,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/NiHaLOO7/codestash/auth"
 )
 
 type RepoInfo struct {
@@ -64,15 +66,30 @@ var reposDir string
 func StartWeb(repos string) {
 	reposDir = repos
 
+	auth.CleanExpiredSessions()
+
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("web/static"))))
 	http.HandleFunc("/", handleWeb)
 
 	fmt.Println("Web UI started on :9090")
+	fmt.Println("Security: X-Frame-Options, X-Content-Type-Options, HttpOnly cookies enabled")
 	http.ListenAndServe(":9090", nil)
 }
 
 func handleWeb(w http.ResponseWriter, r *http.Request) {
 	path := strings.Trim(r.URL.Path, "/")
+
+	w.Header().Set("X-Frame-Options", "DENY")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	w.Header().Set("X-XSS-Protection", "1; mode=block")
+	w.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
+
+	// Auth protection: redirect to login if not authenticated
+	user := auth.GetCurrentUser(r)
+	if user == "" && path != "login" && path != "signup" && !strings.HasPrefix(path, "static") {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
 
 	if path == "" {
 		handleRepos(w, r)
@@ -81,6 +98,61 @@ func handleWeb(w http.ResponseWriter, r *http.Request) {
 
 	if path == "new" {
 		handleNewRepo(w, r)
+		return
+	}
+
+	if path == "signup" {
+		handleSignup(w, r)
+		return
+	}
+
+	if path == "login" {
+		handleLogin(w, r)
+		return
+	}
+
+	if path == "logout" {
+		handleLogout(w, r)
+		return
+	}
+
+	if path == "settings/profile" {
+		handleUserSettings(w, r)
+		return
+	}
+
+	if strings.HasPrefix(path, "user/") || path == "profile" {
+		handleProfile(w, r)
+		return
+	}
+
+	if path == "explore" {
+		handleExplore(w, r)
+		return
+	}
+
+	if path == "notifications" {
+		handleNotifications(w, r)
+		return
+	}
+
+	if path == "search" {
+		handleSearch(w, r)
+		return
+	}
+
+	if path == "gists" {
+		handleGists(w, r)
+		return
+	}
+
+	if path == "gists/new" {
+		handleNewGist(w, r)
+		return
+	}
+
+	if path == "projects" {
+		handleProjects(w, r)
 		return
 	}
 
@@ -142,9 +214,129 @@ func handleWeb(w http.ResponseWriter, r *http.Request) {
 			filePath = parts[3]
 		}
 		handleEdit(w, r, repo, branch, filePath)
+	case "issues":
+		if len(parts) >= 3 {
+			if parts[2] == "new" {
+				handleNewIssue(w, r, repo)
+			} else {
+				handleIssueDetail(w, r, repo, parts[2])
+			}
+		} else {
+			handleIssues(w, r, repo)
+		}
+	case "pulls":
+		if len(parts) >= 3 {
+			if parts[2] == "new" {
+				handleNewPR(w, r, repo)
+			} else {
+				handlePRDetail(w, r, repo, parts[2])
+			}
+		} else {
+			handlePulls(w, r, repo)
+		}
+	case "pipelines":
+		handlePipelines(w, r, repo)
+	case "wiki":
+		handleWiki(w, r, repo)
+	case "settings":
+		handleRepoSettings(w, r, repo)
+	case "releases":
+		if len(parts) >= 3 && parts[2] == "new" {
+			handleNewRelease(w, r, repo)
+		} else {
+			handleReleases(w, r, repo)
+		}
+	case "tags":
+		handleTags(w, r, repo)
+	case "labels":
+		handleLabels(w, r, repo)
+	case "milestones":
+		handleMilestones(w, r, repo)
+	case "blame":
+		branch := ""
+		filePath := ""
+		if len(parts) >= 3 {
+			branch = parts[2]
+		}
+		if len(parts) >= 4 {
+			filePath = parts[3]
+		}
+		handleBlame(w, r, repo, branch, filePath)
+	case "history":
+		branch := ""
+		filePath := ""
+		if len(parts) >= 3 {
+			branch = parts[2]
+		}
+		if len(parts) >= 4 {
+			filePath = parts[3]
+		}
+		handleFileHistory(w, r, repo, branch, filePath)
 	default:
 		http.NotFound(w, r)
 	}
+}
+
+func handleIssues(w http.ResponseWriter, r *http.Request, repo string) {
+	data := map[string]interface{}{
+		"Title":  "Issues - " + repo,
+		"Repo":   repo,
+		"Branch": getDefaultBranch(reposDir + "/" + repo),
+		"Issues": []map[string]string{},
+		"Active": "issues",
+	}
+	renderPage(w, r, "issues.html", data)
+}
+
+func handlePulls(w http.ResponseWriter, r *http.Request, repo string) {
+	data := map[string]interface{}{
+		"Title":  "Pull Requests - " + repo,
+		"Repo":   repo,
+		"Branch": getDefaultBranch(reposDir + "/" + repo),
+		"Pulls":  []map[string]string{},
+		"Active": "pulls",
+	}
+	renderPage(w, r, "pulls.html", data)
+}
+
+func handlePipelines(w http.ResponseWriter, r *http.Request, repo string) {
+	data := map[string]interface{}{
+		"Title":     "CI/CD - " + repo,
+		"Repo":      repo,
+		"Branch":    getDefaultBranch(reposDir + "/" + repo),
+		"Pipelines": []map[string]string{},
+		"Active":    "pipelines",
+	}
+	renderPage(w, r, "pipelines.html", data)
+}
+
+func handleWiki(w http.ResponseWriter, r *http.Request, repo string) {
+	data := map[string]interface{}{
+		"Title":  "Wiki - " + repo,
+		"Repo":   repo,
+		"Branch": getDefaultBranch(reposDir + "/" + repo),
+		"Pages":  []map[string]string{},
+		"Active": "wiki",
+	}
+	renderPage(w, r, "wiki.html", data)
+}
+
+func handleRepoSettings(w http.ResponseWriter, r *http.Request, repo string) {
+	data := map[string]interface{}{
+		"Title":  "Settings - " + repo,
+		"Repo":   repo,
+		"Branch": getDefaultBranch(reposDir + "/" + repo),
+		"Active": "settings",
+	}
+	renderPage(w, r, "settings.html", data)
+}
+
+func handleUserSettings(w http.ResponseWriter, r *http.Request) {
+	data := map[string]interface{}{
+		"Title":  "Profile Settings",
+		"Active": "settings",
+	}
+	renderPage(w, r, "user-settings.html", data)
 }
 
 func handleRepos(w http.ResponseWriter, r *http.Request) {
@@ -158,10 +350,12 @@ func handleRepos(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := map[string]interface{}{
-		"Title": "Repositories",
-		"Repos": repos,
+		"Title":     "Repositories",
+		"Repos":     repos,
+		"RepoCount": len(repos),
+		"Active":    "repos",
 	}
-	renderTemplate(w, "repos.html", data)
+	renderPage(w, r, "repos.html", data)
 }
 
 func handleNewRepo(w http.ResponseWriter, r *http.Request) {
@@ -185,9 +379,10 @@ func handleNewRepo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := map[string]interface{}{
-		"Title": "New Repository",
+		"Title":  "New Repository",
+		"Active": "new",
 	}
-	renderTemplate(w, "new-repo.html", data)
+	renderPage(w, r, "new-repo.html", data)
 }
 
 func handleNewBranch(w http.ResponseWriter, r *http.Request, repo, sourceBranch string) {
@@ -219,7 +414,7 @@ func handleNewBranch(w http.ResponseWriter, r *http.Request, repo, sourceBranch 
 		"Repo":         repo,
 		"SourceBranch": sourceBranch,
 	}
-	renderTemplate(w, "new-branch.html", data)
+	renderPage(w, r, "new-branch.html", data)
 }
 
 func handleEdit(w http.ResponseWriter, r *http.Request, repo, branch, filePath string) {
@@ -272,7 +467,7 @@ func handleEdit(w http.ResponseWriter, r *http.Request, repo, branch, filePath s
 		"FilePath": filePath,
 		"Content":  content,
 	}
-	renderTemplate(w, "edit.html", data)
+	renderPage(w, r, "edit.html", data)
 }
 
 func handleTree(w http.ResponseWriter, r *http.Request, repo, branch, subpath string) {
@@ -293,7 +488,7 @@ func handleTree(w http.ResponseWriter, r *http.Request, repo, branch, subpath st
 			"PathParts":    []PathPart{},
 			"LatestCommit": nil,
 		}
-		renderTemplate(w, "tree.html", data)
+		renderPage(w, r, "tree.html", data)
 		return
 	}
 
@@ -345,7 +540,7 @@ func handleTree(w http.ResponseWriter, r *http.Request, repo, branch, subpath st
 		"PathParts":    pathParts,
 		"LatestCommit": latestCommit,
 	}
-	renderTemplate(w, "tree.html", data)
+	renderPage(w, r, "tree.html", data)
 }
 
 func handleBlob(w http.ResponseWriter, r *http.Request, repo, branch, filePath string) {
@@ -393,7 +588,7 @@ func handleBlob(w http.ResponseWriter, r *http.Request, repo, branch, filePath s
 		"LineCount": len(lines),
 		"PathParts": pathParts,
 	}
-	renderTemplate(w, "blob.html", data)
+	renderPage(w, r, "blob.html", data)
 }
 
 func handleCommits(w http.ResponseWriter, r *http.Request, repo, branch string) {
@@ -407,7 +602,7 @@ func handleCommits(w http.ResponseWriter, r *http.Request, repo, branch string) 
 		"Branch":  branch,
 		"Commits": commits,
 	}
-	renderTemplate(w, "commits.html", data)
+	renderPage(w, r, "commits.html", data)
 }
 
 func handleDiff(w http.ResponseWriter, r *http.Request, repo, hash string) {
@@ -475,7 +670,7 @@ func handleDiff(w http.ResponseWriter, r *http.Request, repo, hash string) {
 		"Author":  commit.Author,
 		"Diffs":   diffs,
 	}
-	renderTemplate(w, "diff.html", data)
+	renderPage(w, r, "diff.html", data)
 }
 
 func computeWordDiff(oldContent, newContent string) []DiffLine {
@@ -889,6 +1084,19 @@ func getCommitLog(repoPath, hash string, limit int) []CommitInfo {
 func hashObject(data []byte) string {
 	h := sha1.Sum(data)
 	return hex.EncodeToString(h[:])
+}
+
+func renderPage(w http.ResponseWriter, r *http.Request, name string, data map[string]interface{}) {
+	if _, ok := data["CurrentUser"]; !ok {
+		data["CurrentUser"] = auth.GetCurrentUser(r)
+	}
+	if _, ok := data["Active"]; !ok {
+		data["Active"] = ""
+	}
+	if _, ok := data["HideChrome"]; !ok {
+		data["HideChrome"] = false
+	}
+	renderTemplate(w, name, data)
 }
 
 func renderTemplate(w http.ResponseWriter, name string, data interface{}) {

@@ -1,0 +1,38 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <h1>Explore</h1>
+        <p class="subtitle">Discover repositories on this CodeStash instance</p>
+    </div>
+</div>
+
+<div class="explore-tabs">
+    <a href="#" class="explore-tab active">Repositories</a>
+    <a href="#" class="explore-tab">Users</a>
+    <a href="#" class="explore-tab">Topics</a>
+    <a href="#" class="explore-tab">Trending</a>
+</div>
+
+<div class="filter-bar">
+    <div class="filter-tabs">
+        <a href="#" class="filter-tab active">All</a>
+        <a href="#" class="filter-tab">Stars</a>
+        <a href="#" class="filter-tab">Forks</a>
+        <a href="#" class="filter-tab">Recently updated</a>
+    </div>
+    <div class="topbar-search" style="max-width:280px;">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M10.68 11.74a6 6 0 01-7.922-8.982 6 6 0 018.982 7.922l3.04 3.04a.749.749 0 01-1.06 1.06l-3.04-3.04zM11.5 7a4.499 4.499 0 10-8.998 0A4.499 4.499 0 0011.5 7z"/></svg>
+        <input type="text" placeholder="Search repositories...">
+    </div>
+</div>
+
+<div class="explore-list">
+    <div class="empty-state">
+        <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM6.34 12.26l1-4.92 4.92-1-4.92 1-1 4.92z"/></svg>
+        </div>
+        <h3>Explore the CodeStash universe</h3>
+        <p>Public repositories from all users will appear here.</p>
+    </div>
+</div>
+{{end}}

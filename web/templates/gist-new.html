@@ -1,0 +1,58 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <h1>Create a new Gist</h1>
+        <p class="subtitle">Share snippets of code, notes, or text</p>
+    </div>
+</div>
+
+<div class="gist-form">
+    <div class="form-group">
+        <input type="text" class="form-input form-input-title" placeholder="Gist description (optional)...">
+    </div>
+
+    <div class="gist-files">
+        <div class="gist-file-entry">
+            <div class="gist-file-header">
+                <input type="text" class="form-input gist-filename" placeholder="Filename including extension (e.g. main.go)">
+                <div class="gist-file-actions">
+                    <select class="form-select-sm">
+                        <option>Indent mode: Spaces</option>
+                        <option>Indent mode: Tabs</option>
+                    </select>
+                    <select class="form-select-sm">
+                        <option>Indent size: 4</option>
+                        <option>Indent size: 2</option>
+                        <option>Indent size: 8</option>
+                    </select>
+                    <select class="form-select-sm">
+                        <option>Line wrap: No wrap</option>
+                        <option>Line wrap: Soft wrap</option>
+                    </select>
+                </div>
+            </div>
+            <textarea class="gist-editor" placeholder="Enter code or text here..." rows="15"></textarea>
+        </div>
+    </div>
+
+    <div class="gist-add-file">
+        <button class="btn btn-sm">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+            Add file
+        </button>
+    </div>
+
+    <div class="gist-submit">
+        <div class="gist-visibility-group">
+            <button class="btn btn-primary">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.533.133a1.75 1.75 0 00-1.066 0l-5.25 1.68A1.75 1.75 0 001 3.48V7c0 1.566.32 3.182 1.303 4.682.983 1.498 2.585 2.813 5.032 3.855a1.7 1.7 0 001.33 0c2.447-1.042 4.049-2.357 5.032-3.855C14.68 10.182 15 8.566 15 7V3.48a1.75 1.75 0 00-1.217-1.667L8.533.133z"/></svg>
+                Create secret gist
+            </button>
+            <button class="btn">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z"/></svg>
+                Create public gist
+            </button>
+        </div>
+    </div>
+</div>
+{{end}}

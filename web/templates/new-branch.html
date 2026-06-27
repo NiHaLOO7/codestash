@@ -1,27 +1,40 @@
 {{define "content"}}
-<div class="container-xl">
-    <div class="repohead">
-        <div class="repohead-name">
-            <span class="owner">codestash</span>
-            <span class="slash">/</span>
-            <a class="repo" href="/{{.Repo}}">{{.Repo}}</a>
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <span class="current">New Branch</span>
         </div>
+        <h1>Create a new branch</h1>
+        <p class="subtitle">Branches allow you to develop features or fix bugs in isolation.</p>
     </div>
+</div>
 
-    <div style="padding: 24px 0;">
-        <h2 style="font-size: 20px; margin-bottom: 16px;">Create a new branch</h2>
-        <div class="form-card">
-            <form method="POST" action="/{{.Repo}}/new-branch/{{.SourceBranch}}">
-                <div class="form-group">
-                    <label>New branch name</label>
-                    <input type="text" name="branch" placeholder="feature/my-branch" required>
+<div class="form-card-wide" style="max-width:600px;">
+    <form method="POST" action="/{{.Repo}}/new-branch/{{.SourceBranch}}">
+        <div class="form-section">
+            <div class="form-group">
+                <label>Branch name</label>
+                <input type="text" name="branch" class="form-input" placeholder="feature/my-awesome-feature" required>
+                <p class="form-hint">Use a descriptive name. Common patterns: feature/*, bugfix/*, hotfix/*</p>
+            </div>
+            <div class="form-group">
+                <label>Source branch</label>
+                <div class="branch-source-display">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="var(--accent)"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
+                    <code>{{.SourceBranch}}</code>
+                    <span style="color:var(--text-tertiary);font-size:12px;">— your new branch will be based on this</span>
                 </div>
-                <p style="color: #656d76; font-size: 12px; margin-bottom: 16px;">
-                    Branch will be created from <strong>{{.SourceBranch}}</strong>
-                </p>
-                <button type="submit" class="btn btn-primary">Create Branch</button>
-            </form>
+            </div>
         </div>
-    </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
+                Create Branch
+            </button>
+            <a href="/{{.Repo}}" class="btn">Cancel</a>
+        </div>
+    </form>
 </div>
 {{end}}

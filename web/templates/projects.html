@@ -1,0 +1,88 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <h1>Projects</h1>
+        <p class="subtitle">Plan and track work with project boards</p>
+    </div>
+    <a href="#" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+        New Project
+    </a>
+</div>
+
+<div class="projects-page">
+    <div class="projects-tabs">
+        <a class="project-type-tab active">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75C0 .784.784 0 1.75 0zM1.5 1.75v12.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25z"/></svg>
+            Board
+        </a>
+        <a class="project-type-tab">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25H1.75zM3.5 4h9a.5.5 0 010 1h-9a.5.5 0 010-1zm0 3h9a.5.5 0 010 1h-9a.5.5 0 010-1zm0 3h9a.5.5 0 010 1h-9a.5.5 0 010-1z"/></svg>
+            Table
+        </a>
+        <a class="project-type-tab">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 012.5 1h3A1.5 1.5 0 017 2.5v3A1.5 1.5 0 015.5 7h-3A1.5 1.5 0 011 5.5v-3zm8 0A1.5 1.5 0 0110.5 1h3A1.5 1.5 0 0115 2.5v3A1.5 1.5 0 0113.5 7h-3A1.5 1.5 0 019 5.5v-3zm-8 8A1.5 1.5 0 012.5 9h3A1.5 1.5 0 017 10.5v3A1.5 1.5 0 015.5 15h-3A1.5 1.5 0 011 13.5v-3zm8 0A1.5 1.5 0 0110.5 9h3a1.5 1.5 0 011.5 1.5v3a1.5 1.5 0 01-1.5 1.5h-3A1.5 1.5 0 019 13.5v-3z"/></svg>
+            Roadmap
+        </a>
+    </div>
+
+    <div class="kanban-board">
+        <div class="kanban-column">
+            <div class="kanban-column-header">
+                <div class="kanban-column-title">
+                    <span class="kanban-dot" style="background:#6e7681;"></span>
+                    Todo
+                </div>
+                <span class="kanban-count">0</span>
+            </div>
+            <div class="kanban-cards">
+                <div class="kanban-empty">
+                    <p>No items</p>
+                </div>
+            </div>
+            <button class="kanban-add-btn">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+                Add item
+            </button>
+        </div>
+
+        <div class="kanban-column">
+            <div class="kanban-column-header">
+                <div class="kanban-column-title">
+                    <span class="kanban-dot" style="background:#d29922;"></span>
+                    In Progress
+                </div>
+                <span class="kanban-count">0</span>
+            </div>
+            <div class="kanban-cards">
+                <div class="kanban-empty">
+                    <p>No items</p>
+                </div>
+            </div>
+            <button class="kanban-add-btn">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+                Add item
+            </button>
+        </div>
+
+        <div class="kanban-column">
+            <div class="kanban-column-header">
+                <div class="kanban-column-title">
+                    <span class="kanban-dot" style="background:#3fb950;"></span>
+                    Done
+                </div>
+                <span class="kanban-count">0</span>
+            </div>
+            <div class="kanban-cards">
+                <div class="kanban-empty">
+                    <p>No items</p>
+                </div>
+            </div>
+            <button class="kanban-add-btn">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+                Add item
+            </button>
+        </div>
+    </div>
+</div>
+{{end}}

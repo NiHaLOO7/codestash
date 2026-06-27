@@ -1,0 +1,52 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            {{range .PathParts}}
+            <a href="/{{$.Repo}}/tree/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
+            <span class="sep">/</span>
+            {{end}}
+            <span class="current">{{.FileName}}</span>
+        </div>
+        <h1>Blame</h1>
+    </div>
+    <div class="blame-actions">
+        <a href="/{{.Repo}}/blob/{{.Branch}}/{{.FilePath}}" class="btn btn-sm">Normal view</a>
+        <a href="/{{.Repo}}/history/{{.Branch}}/{{.FilePath}}" class="btn btn-sm">History</a>
+    </div>
+</div>
+
+<div class="blame-file">
+    <div class="file-header">
+        <div class="file-info">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V4.664a.25.25 0 00-.073-.177l-2.914-2.914a.25.25 0 00-.177-.073H3.75z"/></svg>
+            <span>{{.FileName}}</span>
+            <span class="file-stat">{{.LineCount}} lines</span>
+        </div>
+        <div class="file-actions-bar">
+            <button class="btn btn-sm" title="Copy raw">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"/></svg>
+            </button>
+        </div>
+    </div>
+    <div class="blame-content">
+        {{range .Lines}}
+        <div class="blame-line">
+            <div class="blame-info {{if .NewBlock}}blame-border{{end}}">
+                {{if .NewBlock}}
+                <div class="blame-commit-info">
+                    <a href="/{{$.Repo}}/commit/{{.CommitHash}}" class="blame-hash">{{slice .CommitHash 0 7}}</a>
+                    <span class="blame-author">{{.Author}}</span>
+                    <span class="blame-date">{{.Date}}</span>
+                </div>
+                {{end}}
+            </div>
+            <div class="blame-line-num">{{.Num}}</div>
+            <div class="blame-code"><pre>{{.Content}}</pre></div>
+        </div>
+        {{end}}
+    </div>
+</div>
+{{end}}

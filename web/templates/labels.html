@@ -1,0 +1,60 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <span class="current">Labels</span>
+        </div>
+        <h1>Labels</h1>
+        <p class="subtitle">Organize issues and pull requests with labels</p>
+    </div>
+    <button class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+        New label
+    </button>
+</div>
+
+<div class="labels-list">
+    <div class="label-item">
+        <span class="label-tag" style="background:#d73a4a;color:#fff;">bug</span>
+        <span class="label-desc">Something isn't working</span>
+        <span class="label-count">0 open issues</span>
+    </div>
+    <div class="label-item">
+        <span class="label-tag" style="background:#0075ca;color:#fff;">documentation</span>
+        <span class="label-desc">Improvements or additions to documentation</span>
+        <span class="label-count">0 open issues</span>
+    </div>
+    <div class="label-item">
+        <span class="label-tag" style="background:#cfd3d7;color:#24292f;">duplicate</span>
+        <span class="label-desc">This issue or pull request already exists</span>
+        <span class="label-count">0 open issues</span>
+    </div>
+    <div class="label-item">
+        <span class="label-tag" style="background:#a2eeef;color:#24292f;">enhancement</span>
+        <span class="label-desc">New feature or request</span>
+        <span class="label-count">0 open issues</span>
+    </div>
+    <div class="label-item">
+        <span class="label-tag" style="background:#7057ff;color:#fff;">good first issue</span>
+        <span class="label-desc">Good for newcomers</span>
+        <span class="label-count">0 open issues</span>
+    </div>
+    <div class="label-item">
+        <span class="label-tag" style="background:#008672;color:#fff;">help wanted</span>
+        <span class="label-desc">Extra attention is needed</span>
+        <span class="label-count">0 open issues</span>
+    </div>
+    <div class="label-item">
+        <span class="label-tag" style="background:#e4e669;color:#24292f;">invalid</span>
+        <span class="label-desc">This doesn't seem right</span>
+        <span class="label-count">0 open issues</span>
+    </div>
+    <div class="label-item">
+        <span class="label-tag" style="background:#d876e3;color:#fff;">question</span>
+        <span class="label-desc">Further information is requested</span>
+        <span class="label-count">0 open issues</span>
+    </div>
+</div>
+{{end}}

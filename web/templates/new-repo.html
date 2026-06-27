@@ -1,18 +1,103 @@
 {{define "content"}}
-<div class="container-xl">
-    <div class="dashboard-header">
-        <h2>Create a new repository</h2>
+<div class="page-header">
+    <div>
+        <h1>Create a new repository</h1>
+        <p class="subtitle">A repository contains all project files, including the revision history.</p>
     </div>
+</div>
 
-    <div class="form-card">
-        <form method="POST" action="/new">
-            <div class="form-group">
-                <label>Repository name</label>
-                <input type="text" name="name" placeholder="my-project.git" required>
-                <p style="color: #656d76; font-size: 12px; margin-top: 4px;">Must end with .git</p>
+<div class="form-card-wide">
+    <form method="POST" action="/new">
+        <div class="form-section">
+            <div class="form-section-header">
+                <h3>Repository details</h3>
             </div>
-            <button type="submit" class="btn btn-primary">Create Repository</button>
-        </form>
-    </div>
+            <div class="form-row">
+                <div class="form-group" style="flex:2;">
+                    <label>Owner</label>
+                    <input type="text" class="form-input" value="{{.CurrentUser}}" disabled>
+                </div>
+                <div style="display:flex;align-items:center;padding-top:20px;font-size:20px;color:var(--text-tertiary);">/</div>
+                <div class="form-group" style="flex:3;">
+                    <label>Repository name</label>
+                    <input type="text" name="name" class="form-input" placeholder="awesome-project" required>
+                </div>
+            </div>
+            <p class="form-hint" style="margin-top:-8px;">Great repository names are short and memorable.</p>
+            <div class="form-group">
+                <label>Description <span style="color:var(--text-tertiary);font-weight:400;">(optional)</span></label>
+                <input type="text" name="description" class="form-input" placeholder="A short description of this repository">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-section-header">
+                <h3>Visibility</h3>
+            </div>
+            <div class="visibility-options">
+                <label class="visibility-option selected">
+                    <input type="radio" name="visibility" value="public" checked onchange="this.closest('.visibility-options').querySelectorAll('.visibility-option').forEach(e=>e.classList.remove('selected'));this.closest('.visibility-option').classList.add('selected')">
+                    <div class="visibility-icon public">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg>
+                    </div>
+                    <div>
+                        <strong>Public</strong>
+                        <p>Anyone on the internet can see this repository.</p>
+                    </div>
+                </label>
+                <label class="visibility-option">
+                    <input type="radio" name="visibility" value="private" onchange="this.closest('.visibility-options').querySelectorAll('.visibility-option').forEach(e=>e.classList.remove('selected'));this.closest('.visibility-option').classList.add('selected')">
+                    <div class="visibility-icon private">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 4v2h-.25A1.75 1.75 0 002 7.75v5.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-5.5A1.75 1.75 0 0012.25 6H12V4a4 4 0 10-8 0zm6.5 2V4a2.5 2.5 0 00-5 0v2h5zM8 9.5a1.5 1.5 0 01.75 2.8v.95a.75.75 0 01-1.5 0v-.95A1.5 1.5 0 018 9.5z"/></svg>
+                    </div>
+                    <div>
+                        <strong>Private</strong>
+                        <p>You choose who can see and commit to this repository.</p>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-section-header">
+                <h3>Initialize this repository with:</h3>
+            </div>
+            <label class="checkbox-option">
+                <input type="checkbox" name="readme" value="1">
+                <span>Add a README file</span>
+            </label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
+                <div class="form-group" style="margin-bottom:0;">
+                    <label style="font-size:12px;color:var(--text-secondary);">.gitignore template</label>
+                    <select class="form-input" name="gitignore" disabled>
+                        <option value="">None</option>
+                        <option>Go</option>
+                        <option>Python</option>
+                        <option>Node</option>
+                        <option>Java</option>
+                        <option>Rust</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label style="font-size:12px;color:var(--text-secondary);">License</label>
+                    <select class="form-input" name="license" disabled>
+                        <option value="">None</option>
+                        <option>MIT License</option>
+                        <option>Apache License 2.0</option>
+                        <option>GNU GPLv3</option>
+                        <option>BSD 2-Clause</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg>
+                Create Repository
+            </button>
+            <a href="/" class="btn">Cancel</a>
+        </div>
+    </form>
 </div>
 {{end}}

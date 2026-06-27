@@ -1,0 +1,87 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <a href="/{{.Repo}}/releases">Releases</a>
+            <span class="sep">/</span>
+            <span class="current">New</span>
+        </div>
+        <h1>Draft a new release</h1>
+        <p class="subtitle">Releases mark specific points in your repository's history.</p>
+    </div>
+</div>
+
+<div class="form-card-wide" style="max-width:720px;">
+    <div class="form-section">
+        <div class="form-section-header">
+            <h3>Choose a tag</h3>
+        </div>
+        <div class="form-row" style="gap:16px;">
+            <div class="form-group" style="flex:1;">
+                <label>Tag version</label>
+                <input type="text" class="form-input" placeholder="v1.0.0">
+                <p class="form-hint">Create a new tag on publish or choose existing.</p>
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>Target</label>
+                <div class="branch-selector" style="width:100%;padding:9px 12px;">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
+                    <select style="flex:1;">
+                        {{range .Branches}}
+                        <option value="{{.}}" {{if eq . $.Branch}}selected{{end}}>{{.}}</option>
+                        {{end}}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="form-section-header">
+            <h3>Release details</h3>
+        </div>
+        <div class="form-group">
+            <label>Release title</label>
+            <input type="text" class="form-input" placeholder="v1.0.0 - Initial Release">
+        </div>
+        <div class="form-group">
+            <label>Describe this release</label>
+            <div style="display:flex;gap:6px;margin-bottom:8px;">
+                <button class="btn btn-sm">Auto-generate notes</button>
+            </div>
+            <textarea class="form-input form-input-editor" placeholder="Describe what's new in this release...&#10;&#10;## What's Changed&#10;- Feature A by @user in #12&#10;- Bug fix B by @user in #15&#10;&#10;**Full Changelog**: compare/v0.9...v1.0" rows="10"></textarea>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="form-section-header">
+            <h3>Attach binaries</h3>
+        </div>
+        <div class="file-drop-zone">
+            <svg width="24" height="24" viewBox="0 0 16 16" fill="var(--text-tertiary)"><path d="M3.5 1.75v11.5c0 .09.048.173.126.217a.25.25 0 00.249-.012l3.125-2.19 3.125 2.19a.25.25 0 00.374-.217V1.75A1.75 1.75 0 008.75 0h-3.5A1.75 1.75 0 003.5 1.75z"/></svg>
+            <p>Drag files here or <a href="#">choose files</a></p>
+            <p class="form-hint">Attach binaries by dropping them here or selecting them.</p>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <label class="checkbox-option">
+            <input type="checkbox">
+            <span>Set as a pre-release</span>
+        </label>
+        <p class="form-hint" style="margin-left:24px;">This release will be labeled as non-production ready.</p>
+        <label class="checkbox-option" style="margin-top:10px;">
+            <input type="checkbox">
+            <span>Create a discussion for this release</span>
+        </label>
+    </div>
+
+    <div class="form-actions">
+        <button class="btn btn-primary">Publish release</button>
+        <button class="btn">Save draft</button>
+        <a href="/{{.Repo}}/releases" class="btn" style="margin-left:auto;">Cancel</a>
+    </div>
+</div>
+{{end}}

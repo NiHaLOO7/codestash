@@ -8,20 +8,105 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <header class="AppHeader">
-        <a href="/" class="AppHeader-logo">
-            <span class="logo-icon">CS</span>
-            CodeStash
-        </a>
-        <div class="AppHeader-search">
-            <input type="text" placeholder="Search repositories..." disabled>
-        </div>
-        <nav class="AppHeader-nav">
-            <a href="/">Repositories</a>
-            <a href="/new">New Repo</a>
-        </nav>
-    </header>
+    {{if .HideChrome}}
     {{template "content" .}}
+    {{else}}
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="logo">CS</div>
+            <span class="brand-text">CodeStash</span>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Navigation</div>
+                <a href="/" class="sidebar-link{{if eq .Active "repos"}} active{{end}}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg>
+                    Repositories
+                </a>
+                <a href="#" class="sidebar-link{{if eq .Active "pulls"}} active{{end}}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zm5.677-.177L9.573.677A.25.25 0 0110 .854V2.5h1A2.5 2.5 0 0113.5 5v5.628a2.251 2.251 0 11-1.5 0V5a1 1 0 00-1-1h-1v1.646a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354z"/></svg>
+                    Pull Requests
+                </a>
+                <a href="#" class="sidebar-link{{if eq .Active "issues"}} active{{end}}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg>
+                    Issues
+                </a>
+                <a href="/explore" class="sidebar-link{{if eq .Active "explore"}} active{{end}}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM6.34 12.26l1-4.92 4.92-1-4.92 1-1 4.92z"/></svg>
+                    Explore
+                </a>
+                <a href="/notifications" class="sidebar-link{{if eq .Active "notifications"}} active{{end}}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16a2 2 0 001.985-1.75H6.015A2 2 0 008 16zm5.657-3.843a1.25 1.25 0 01-.882-2.132l.006-.006A4.486 4.486 0 0014 7.5 6 6 0 002 7.5a4.49 4.49 0 001.219 2.519l.006.006a1.25 1.25 0 01-.882 2.132H2a.75.75 0 000 1.5h12a.75.75 0 000-1.5h-.343z"/></svg>
+                    Notifications
+                </a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Manage</div>
+                <a href="/new" class="sidebar-link{{if eq .Active "new"}} active{{end}}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+                    New Repository
+                </a>
+                <a href="/settings/profile" class="sidebar-link{{if eq .Active "settings"}} active{{end}}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8.2 8.2 0 01.701.031C9.444.095 9.99.645 10.16 1.29l.17.638c.196.742.9 1.2 1.66 1.08l.656-.107c.665-.107 1.32.19 1.64.76a8.1 8.1 0 011.202 2.94l-.049.113c-.234.508-.09 1.108.347 1.453l.502.39c.543.42.737 1.14.472 1.756a8.2 8.2 0 01-.503.934c-.34.548-.99.825-1.648.687l-.644-.136c-.743-.157-1.474.314-1.634 1.063l-.116.545c-.163.764-.744 1.365-1.504 1.44A8.3 8.3 0 018 16a8.3 8.3 0 01-.789-.038c-.76-.075-1.341-.676-1.504-1.44l-.116-.545c-.16-.749-.89-1.22-1.634-1.063l-.644.136c-.658.138-1.308-.14-1.648-.687a8.2 8.2 0 01-.503-.934c-.265-.616-.071-1.336.472-1.756l.502-.39c.437-.345.581-.945.347-1.453l-.049-.113a8.1 8.1 0 011.202-2.94c.32-.57.975-.867 1.64-.76l.656.107c.76.12 1.464-.338 1.66-1.08l.17-.638C6.01.645 6.556.095 7.299.031A8.2 8.2 0 018 0zM8 5a3 3 0 100 6 3 3 0 000-6z"/></svg>
+                    Settings
+                </a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-session-info">
+                <svg width="10" height="10" viewBox="0 0 16 16" fill="#10b981"><circle cx="8" cy="8" r="8"/></svg>
+                <span>Secure Session Active</span>
+            </div>
+            {{if .CurrentUser}}
+            <a href="/logout" class="sidebar-user" style="text-decoration:none;">
+                <div class="avatar">{{slice .CurrentUser 0 1}}</div>
+                <div class="user-info">
+                    <div class="name">{{.CurrentUser}}</div>
+                    <div class="role">Owner</div>
+                </div>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="rgba(255,255,255,0.4)"><path d="M2 2.75C2 1.784 2.784 1 3.75 1h2.5a.75.75 0 010 1.5h-2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h2.5a.75.75 0 010 1.5h-2.5A1.75 1.75 0 012 13.25V2.75zm10.44 4.5H6.75a.75.75 0 000 1.5h5.69l-1.97 1.97a.749.749 0 101.06 1.06l3.25-3.25a.749.749 0 000-1.06l-3.25-3.25a.749.749 0 10-1.06 1.06l1.97 1.97z"/></svg>
+            </a>
+            {{end}}
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="topbar">
+            <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 010 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 010 1.5H1.75A.75.75 0 011 7.75zm0 5a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H1.75a.75.75 0 01-.75-.75z"/></svg>
+            </button>
+            <div class="topbar-search">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M10.68 11.74a6 6 0 01-7.922-8.982 6 6 0 018.982 7.922l3.04 3.04a.749.749 0 01-1.06 1.06l-3.04-3.04zM11.5 7a4.499 4.499 0 10-8.998 0A4.499 4.499 0 0011.5 7z"/></svg>
+                <input type="text" placeholder="Search repositories, files, commits...">
+                <kbd class="search-shortcut">/</kbd>
+            </div>
+            <div class="topbar-actions">
+                <div class="topbar-secure-badge" title="Authenticated session">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8.533.133a1.75 1.75 0 00-1.066 0l-5.25 1.68A1.75 1.75 0 001 3.48V7c0 1.566.32 3.182 1.303 4.682.983 1.498 2.585 2.813 5.032 3.855a1.7 1.7 0 001.33 0c2.447-1.042 4.049-2.357 5.032-3.855C14.68 10.182 15 8.566 15 7V3.48a1.75 1.75 0 00-1.217-1.667L8.533.133zm-.61 1.429a.25.25 0 01.153 0l5.25 1.68a.25.25 0 01.174.238V7c0 1.358-.275 2.666-1.057 3.86-.784 1.194-2.121 2.34-4.366 3.297a.2.2 0 01-.154 0c-2.245-.956-3.582-2.104-4.366-3.298C2.775 9.666 2.5 8.36 2.5 7V3.48a.25.25 0 01.174-.238l5.25-1.68zM11.28 6.28a.75.75 0 00-1.06-1.06L7.25 8.19l-.97-.97a.75.75 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0l3.5-3.5z"/></svg>
+                    <span>Secure</span>
+                </div>
+                <a href="/notifications" class="topbar-icon-btn" title="Notifications">
+                    <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16a2 2 0 001.985-1.75H6.015A2 2 0 008 16zm5.657-3.843a1.25 1.25 0 01-.882-2.132l.006-.006A4.486 4.486 0 0014 7.5 6 6 0 002 7.5a4.49 4.49 0 001.219 2.519l.006.006a1.25 1.25 0 01-.882 2.132H2a.75.75 0 000 1.5h12a.75.75 0 000-1.5h-.343z"/></svg>
+                    <span class="notification-dot"></span>
+                </a>
+                <a href="/new" class="btn btn-primary btn-sm">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+                    New
+                </a>
+                {{if .CurrentUser}}
+                <div class="topbar-user-menu">
+                    <a href="/settings/profile" class="topbar-avatar" title="{{.CurrentUser}}">
+                        {{slice .CurrentUser 0 1}}
+                    </a>
+                </div>
+                {{end}}
+            </div>
+        </div>
+        <div class="page-content">
+            {{template "content" .}}
+        </div>
+    </main>
+    {{end}}
 </body>
 </html>
 {{end}}

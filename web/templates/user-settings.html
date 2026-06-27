@@ -1,0 +1,136 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <h1>Profile Settings</h1>
+        <p class="subtitle">Manage your account and preferences</p>
+    </div>
+</div>
+
+<div class="settings-layout">
+    <div class="settings-sidebar">
+        <a href="#" class="settings-nav-link active">Profile</a>
+        <a href="#" class="settings-nav-link">Security</a>
+        <a href="#" class="settings-nav-link">SSH Keys</a>
+        <a href="#" class="settings-nav-link">Access Tokens</a>
+        <a href="#" class="settings-nav-link">Notifications</a>
+        <a href="#" class="settings-nav-link danger">Delete Account</a>
+    </div>
+    <div class="settings-main">
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+                <strong>Public Profile</strong>
+            </div>
+            <div class="card-body">
+                <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+                    <div class="profile-avatar-large">
+                        {{if .CurrentUser}}{{slice .CurrentUser 0 1}}{{end}}
+                    </div>
+                    <div>
+                        <button class="btn btn-sm" disabled>Change avatar</button>
+                        <p style="color:var(--text-tertiary);font-size:11px;margin-top:4px;">JPG, PNG or GIF. Max 1MB.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-input" value="{{.CurrentUser}}" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Display name</label>
+                    <input type="text" class="form-input" placeholder="Your display name">
+                </div>
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea class="form-input" style="min-height:80px;" placeholder="Tell us about yourself"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Website</label>
+                    <input type="url" class="form-input" placeholder="https://yoursite.com">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" class="form-input" placeholder="City, Country">
+                </div>
+                <button class="btn btn-primary" disabled>Update profile</button>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+                <strong>SSH Keys</strong>
+            </div>
+            <div class="card-body">
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px;">SSH keys are used to authenticate git operations over SSH.</p>
+                <div class="form-group">
+                    <label>Key</label>
+                    <textarea class="form-input" style="min-height:80px;font-family:var(--font-mono);font-size:11px;" placeholder="ssh-rsa AAAA..." disabled></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-input" placeholder="My laptop" disabled>
+                </div>
+                <button class="btn btn-primary" disabled>Add SSH key</button>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+                <strong>Security</strong>
+            </div>
+            <div class="card-body">
+                <div style="display:flex;flex-direction:column;gap:14px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--success-bg);border:1px solid #a7f3d0;border-radius:var(--radius-sm);">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#10b981"><path d="M8.533.133a1.75 1.75 0 00-1.066 0l-5.25 1.68A1.75 1.75 0 001 3.48V7c0 1.566.32 3.182 1.303 4.682.983 1.498 2.585 2.813 5.032 3.855a1.7 1.7 0 001.33 0c2.447-1.042 4.049-2.357 5.032-3.855C14.68 10.182 15 8.566 15 7V3.48a1.75 1.75 0 00-1.217-1.667L8.533.133zm-.61 1.429a.25.25 0 01.153 0l5.25 1.68a.25.25 0 01.174.238V7c0 1.358-.275 2.666-1.057 3.86-.784 1.194-2.121 2.34-4.366 3.297a.2.2 0 01-.154 0c-2.245-.956-3.582-2.104-4.366-3.298C2.775 9.666 2.5 8.36 2.5 7V3.48a.25.25 0 01.174-.238l5.25-1.68zM11.28 6.28a.75.75 0 00-1.06-1.06L7.25 8.19l-.97-.97a.75.75 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0l3.5-3.5z"/></svg>
+                            <div>
+                                <div style="font-size:13px;font-weight:600;color:#065f46;">Password Protection</div>
+                                <div style="font-size:11px;color:#047857;">Bcrypt hashed (cost factor 10)</div>
+                            </div>
+                        </div>
+                        <span class="tag tag-public">Active</span>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--success-bg);border:1px solid #a7f3d0;border-radius:var(--radius-sm);">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#10b981"><path d="M4 4v2h-.25A1.75 1.75 0 002 7.75v5.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-5.5A1.75 1.75 0 0012.25 6H12V4a4 4 0 10-8 0zm6.5 2V4a2.5 2.5 0 00-5 0v2h5zM8 9.5a1.5 1.5 0 01.75 2.8v.95a.75.75 0 01-1.5 0v-.95A1.5 1.5 0 018 9.5z"/></svg>
+                            <div>
+                                <div style="font-size:13px;font-weight:600;color:#065f46;">HttpOnly Sessions</div>
+                                <div style="font-size:11px;color:#047857;">24h expiry, SameSite=Strict</div>
+                            </div>
+                        </div>
+                        <span class="tag tag-public">Active</span>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:var(--radius-sm);">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--text-tertiary)"><path d="M6.5 1.75a.75.75 0 00-1.5 0V5H1.75a.75.75 0 000 1.5H5v3.25a.75.75 0 001.5 0V6.5h3.25a.75.75 0 000-1.5H6.5V1.75zM8 13a1 1 0 100-2 1 1 0 000 2zm-2.5-1a2.5 2.5 0 115 0 2.5 2.5 0 01-5 0z"/></svg>
+                            <div>
+                                <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Two-Factor Authentication</div>
+                                <div style="font-size:11px;color:var(--text-tertiary);">Not configured</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm" disabled>Enable</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+                <strong>Personal Access Tokens</strong>
+            </div>
+            <div class="card-body">
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px;">Tokens are used for API access and can be scoped to specific permissions.</p>
+                <button class="btn" disabled>Generate new token</button>
+            </div>
+        </div>
+
+        <div class="card danger-zone">
+            <div class="card-header" style="background:var(--danger-bg);border-color:#fecaca;">
+                <strong style="color:var(--danger);">Delete Account</strong>
+            </div>
+            <div class="card-body">
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px;">Once you delete your account, there is no going back. All your repositories and data will be permanently removed.</p>
+                <button class="btn btn-danger" disabled>Delete my account</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

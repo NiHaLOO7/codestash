@@ -1,0 +1,33 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <span class="current">Milestones</span>
+        </div>
+        <h1>Milestones</h1>
+        <p class="subtitle">Track progress toward goals</p>
+    </div>
+    <button class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+        New milestone
+    </button>
+</div>
+
+<div class="filter-bar">
+    <div class="filter-tabs">
+        <a href="#" class="filter-tab active">Open (0)</a>
+        <a href="#" class="filter-tab">Closed (0)</a>
+    </div>
+</div>
+
+<div class="empty-state">
+    <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M7.75 0a.75.75 0 01.75.75V3h3.634c.414 0 .814.147 1.13.414l2.07 1.75a1.75 1.75 0 010 2.672l-2.07 1.75a1.75 1.75 0 01-1.13.414H8.5v5.25a.75.75 0 01-1.5 0V10H2.75A1.75 1.75 0 011 8.25v-3.5C1 3.784 1.784 3 2.75 3H7V.75A.75.75 0 017.75 0z"/></svg>
+    </div>
+    <h3>No milestones yet</h3>
+    <p>Milestones help you track progress on groups of issues or pull requests.</p>
+    <button class="btn btn-primary">Create milestone</button>
+</div>
+{{end}}

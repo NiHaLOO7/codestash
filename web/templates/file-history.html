@@ -1,0 +1,55 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            {{range .PathParts}}
+            <a href="/{{$.Repo}}/tree/{{$.Branch}}/{{.Path}}">{{.Name}}</a>
+            <span class="sep">/</span>
+            {{end}}
+            <span class="current">{{.FileName}}</span>
+        </div>
+        <h1>History for {{.FileName}}</h1>
+        <p class="subtitle">Showing commit history for this file on branch <code>{{.Branch}}</code></p>
+    </div>
+    <div class="file-history-actions">
+        <a href="/{{.Repo}}/blob/{{.Branch}}/{{.FilePath}}" class="btn btn-sm">View file</a>
+        <a href="/{{.Repo}}/blame/{{.Branch}}/{{.FilePath}}" class="btn btn-sm">Blame</a>
+    </div>
+</div>
+
+<div class="file-history-list">
+    {{if .Commits}}
+    {{range .Commits}}
+    <div class="history-entry">
+        <div class="history-commit-info">
+            <div class="history-message">
+                <a href="/{{$.Repo}}/commit/{{.Hash}}">{{.Message}}</a>
+            </div>
+            <div class="history-meta">
+                <span class="history-author">{{.Author}}</span>
+                committed
+                <span class="history-hash">
+                    <a href="/{{$.Repo}}/commit/{{.Hash}}">{{slice .Hash 0 7}}</a>
+                </span>
+            </div>
+        </div>
+        <div class="history-actions">
+            <a href="/{{$.Repo}}/blob/{{.Hash}}/{{$.FilePath}}" class="btn btn-sm" title="View at this point">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1z"/></svg>
+            </a>
+        </div>
+    </div>
+    {{end}}
+    {{else}}
+    <div class="empty-state">
+        <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M11.93 8.5a4.002 4.002 0 01-7.86 0H.75a.75.75 0 010-1.5h3.32a4.002 4.002 0 017.86 0h3.32a.75.75 0 010 1.5h-3.32zm-1.43-.75a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
+        </div>
+        <h3>No history available</h3>
+        <p>Commit history for this file will appear here.</p>
+    </div>
+    {{end}}
+</div>
+{{end}}

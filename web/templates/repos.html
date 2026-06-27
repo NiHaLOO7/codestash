@@ -1,29 +1,70 @@
 {{define "content"}}
-<div class="container-xl">
-    <div class="dashboard-header">
-        <h2>Repositories</h2>
-        <a href="/new" class="btn btn-primary">New Repository</a>
+<div class="page-header">
+    <div>
+        <h1>Repositories</h1>
+        <p class="subtitle">{{.RepoCount}} repositories owned by <strong>{{.CurrentUser}}</strong></p>
     </div>
+    <a href="/new" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/></svg>
+        New Repository
+    </a>
+</div>
+
+<div class="filter-bar">
+    <div class="filter-tabs">
+        <a href="#" class="filter-tab active">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg>
+            All
+        </a>
+        <a href="#" class="filter-tab">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4 4v2h-.25A1.75 1.75 0 002 7.75v5.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-5.5A1.75 1.75 0 0012.25 6H12V4a4 4 0 10-8 0zm6.5 2V4a2.5 2.5 0 00-5 0v2h5zM8 9.5a1.5 1.5 0 01.75 2.8v.95a.75.75 0 01-1.5 0v-.95A1.5 1.5 0 018 9.5z"/></svg>
+            Private
+        </a>
+        <a href="#" class="filter-tab">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM6.34 12.26l1-4.92 4.92-1-4.92 1-1 4.92z"/></svg>
+            Public
+        </a>
+    </div>
+    <div class="topbar-search" style="max-width:240px;">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M10.68 11.74a6 6 0 01-7.922-8.982 6 6 0 018.982 7.922l3.04 3.04a.749.749 0 01-1.06 1.06l-3.04-3.04zM11.5 7a4.499 4.499 0 10-8.998 0A4.499 4.499 0 0011.5 7z"/></svg>
+        <input type="text" placeholder="Find a repository...">
+    </div>
+</div>
+
+{{if .Repos}}
+<div class="repo-grid">
     {{range .Repos}}
-    <div class="repo-list-item">
-        <h3><a href="/{{.Name}}">{{.Name}}</a></h3>
-        <p class="repo-desc">Self-hosted repository</p>
-        <div class="repo-meta">
-            <span>
-                <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/>
-                </svg>
+    <a href="/{{.Name}}" class="repo-card" style="text-decoration:none;">
+        <div class="repo-card-header">
+            <div class="repo-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg>
+            </div>
+            <span class="repo-name">{{.Name}}</span>
+            <span class="visibility">Public</span>
+        </div>
+        <p class="repo-desc">Self-hosted repository managed by CodeStash</p>
+        <div class="repo-card-meta">
+            <span class="meta-item">
+                <span class="language-dot"></span>
+                Go
+            </span>
+            <span class="meta-item">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
                 {{.Branch}}
             </span>
+            <span class="meta-item">Updated recently</span>
         </div>
-    </div>
-    {{end}}
-    {{if not .Repos}}
-    <div style="text-align: center; padding: 64px 0; color: #656d76;">
-        <p style="font-size: 20px; margin-bottom: 8px;">No repositories yet</p>
-        <p>Create your first repository to get started.</p>
-        <a href="/new" class="btn btn-primary" style="margin-top: 16px;">Create Repository</a>
-    </div>
+    </a>
     {{end}}
 </div>
+{{else}}
+<div class="empty-state">
+    <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg>
+    </div>
+    <h3>No repositories yet</h3>
+    <p>Create your first repository to get started with CodeStash.</p>
+    <a href="/new" class="btn btn-primary">Create Repository</a>
+</div>
+{{end}}
 {{end}}

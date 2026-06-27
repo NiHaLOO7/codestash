@@ -1,0 +1,93 @@
+{{define "content"}}
+<div class="page-header">
+    <div>
+        <div class="breadcrumb" style="margin-bottom:8px;">
+            <a href="/{{.Repo}}">{{.Repo}}</a>
+            <span class="sep">/</span>
+            <a href="/{{.Repo}}/pulls">Pull Requests</a>
+            <span class="sep">/</span>
+            <span class="current">New</span>
+        </div>
+        <h1>Open a pull request</h1>
+        <p class="subtitle">Compare changes across branches and propose merging.</p>
+    </div>
+</div>
+
+<div class="pr-compare-bar">
+    <div class="pr-compare-item">
+        <span class="pr-compare-label">base:</span>
+        <div class="branch-selector">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
+            <select>
+                {{range .Branches}}
+                <option value="{{.}}" {{if eq . $.Branch}}selected{{end}}>{{.}}</option>
+                {{end}}
+            </select>
+        </div>
+    </div>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--text-tertiary)" style="margin:0 8px;"><path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/></svg>
+    <div class="pr-compare-item">
+        <span class="pr-compare-label">compare:</span>
+        <div class="branch-selector">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"/></svg>
+            <select>
+                {{range .Branches}}
+                <option value="{{.}}">{{.}}</option>
+                {{end}}
+            </select>
+        </div>
+    </div>
+    <div class="pr-merge-status clean" style="margin-left:auto;">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+        Able to merge
+    </div>
+</div>
+
+<div class="issue-form-layout" style="margin-top:20px;">
+    <div class="issue-form-main">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <input type="text" class="form-input form-input-title" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-input form-input-editor" placeholder="Describe the changes in this pull request...&#10;&#10;- What does this PR do?&#10;- How was it tested?&#10;- Related issues?" rows="10"></textarea>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:16px;">
+            <button type="submit" class="btn btn-primary">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zm5.677-.177L9.573.677A.25.25 0 0110 .854V2.5h1A2.5 2.5 0 0113.5 5v5.628a2.251 2.251 0 11-1.5 0V5a1 1 0 00-1-1h-1v1.646a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354z"/></svg>
+                Create pull request
+            </button>
+            <a href="/{{.Repo}}/pulls" class="btn">Cancel</a>
+        </div>
+    </div>
+    <div class="issue-form-sidebar">
+        <div class="sidebar-widget">
+            <div class="widget-header">Reviewers</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">No reviewers</a>
+            </div>
+        </div>
+        <div class="sidebar-widget">
+            <div class="widget-header">Assignees</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">No one assigned</a>
+            </div>
+        </div>
+        <div class="sidebar-widget">
+            <div class="widget-header">Labels</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">None yet</a>
+            </div>
+        </div>
+        <div class="sidebar-widget">
+            <div class="widget-header">Milestone</div>
+            <div class="widget-body">
+                <a href="#" class="widget-link">No milestone</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
